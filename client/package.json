@@ -1,0 +1,43 @@
+{
+  "name": "client",
+  "version": "0.1.0",
+  "private": true,
+  "homepage": "http://breath-int.aestar.com.ua",
+  "dependencies": {
+    "axios": "^0.20.0",
+    "bootstrap": "^4.5.2",
+    "dat.gui": "^0.7.7",
+    "prop-types": "^15.7.2",
+    "react": "^16.13.1",
+    "react-bootstrap-icons": "^1.0.0",
+    "react-dom": "^16.13.1",
+    "react-player": "^2.6.2",
+    "react-redux": "^7.2.1",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "^3.4.4",
+    "react-slick": "^0.27.12",
+    "react-transition-group": "^4.4.1",
+    "reactstrap": "^8.6.0",
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0",
+    "screenfull": "^5.0.2",
+    "slick-carousel": "^1.8.1",
+    "three": "^0.121.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "proxy": "http://localhost:5000",
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+}

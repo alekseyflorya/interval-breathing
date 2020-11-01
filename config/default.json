@@ -1,0 +1,6 @@
+{
+  "port": 5000,
+  "mongoURI": "mongodb+srv://florik:Fv5SfRU6YIV7EJ8O@cluster0.czw67.azure.mongodb.net/mern_shopping_list_js",
+  "jwtSecret": "sl_myJwtSecret",
+  "baseUrl": "http://localhost:5000"
+}
