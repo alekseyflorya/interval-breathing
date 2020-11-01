@@ -28,8 +28,8 @@ export class Player extends Component {
   componentDidMount() {
     FigureOne(this.sceneOne)
     FigureTwo(this.sceneTwo)
-    // FigureThree(this.sceneThree)
-    // FigureFour(this.sceneFour)
+    FigureThree(this.sceneThree)
+    FigureFour(this.sceneFour)
   }
 
   load = url => {
@@ -136,16 +136,16 @@ export class Player extends Component {
           <div ref={element => this.sceneTwo = element} />
         </div>
 
-        {/*<div className="player-container">*/}
-        {/*  <div ref={element => this.sceneThree = element}>*/}
-        {/*    <canvas></canvas>*/}
-        {/*  </div>*/}
-        {/*</div>*/}
-        {/*<div className="player-container">*/}
-        {/*  <div ref={element => this.sceneFour = element}>*/}
-        {/*    <canvas></canvas>*/}
-        {/*  </div>*/}
-        {/*</div>*/}
+        <div className="player-container">
+          <div ref={element => this.sceneThree = element}>
+            <canvas></canvas>
+          </div>
+        </div>
+        <div className="player-container">
+          <div ref={element => this.sceneFour = element}>
+            <canvas></canvas>
+          </div>
+        </div>
 
         <div className="player-controls-container">
           <button className="play-btn" onClick={this.handlePlay}>

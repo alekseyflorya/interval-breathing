@@ -1,7 +1,7 @@
 {
-  "name": "mern_shopping_list",
+  "name": "interval-breathing",
   "version": "1.0.0",
-  "description": "Shopping list built with the MERN stack",
+  "description": "Interval breathing app with the MERN stack",
   "main": "server.js",
   "scripts": {
     "client-install": "npm install --prefix client",
@@ -11,7 +11,7 @@
     "client": "npm start --prefix client",
     "dev": "cross-env NODE_ENV=development concurrently \"npm run server\" \"npm run client\""
   },
-  "author": "Brad Traversy",
+  "author": "Aleksey Florya <aleksey.florya@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "bcryptjs": "^2.4.3",
