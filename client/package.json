@@ -2,6 +2,7 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
+  "homepage": "http://breath-int.aestar.com.ua",
   "dependencies": {
     "axios": "^0.20.0",
     "bootstrap": "^4.5.2",
@@ -32,6 +33,7 @@
   "eslintConfig": {
     "extends": "react-app"
   },
+  "proxy": "http://breath-int.aestar.com.ua:5000",
   "browserslist": [
     ">0.2%",
     "not dead",

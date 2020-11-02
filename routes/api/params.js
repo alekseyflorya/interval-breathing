@@ -10,7 +10,6 @@ const Params = require('../../models/Params');
 // @access  Public
 router.get('/', (req, res) => {
   Params.find()
-    .sort({ date: -1 })
     .then(params => res.json(params));
 });
 
@@ -19,7 +18,7 @@ router.get('/', (req, res) => {
 // @access  Private
 router.post('/', auth, (req, res) => {
   const newParams = new Params({
-    name: req.body.name
+    params: req.body.params
   });
 
   newParams.save().then(params => res.json(params));
