@@ -1,6 +1,6 @@
 {
   "port": 80,
   "jwtSecret": "sl_myJwtSecret",
-  "mongoUri": "http://localhost:27017/breath-int",
+  "mongoURI": "http://localhost:27017/breath-int",
   "baseUrl": "http://breath-int.aestar.com.ua"
 }

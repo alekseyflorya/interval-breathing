@@ -8,7 +8,7 @@ import {PersonFill } from 'react-bootstrap-icons'
 import Logout from './auth/Logout';
 import PropTypes from 'prop-types';
 
-class ItemModal extends Component {
+class AuthModal extends Component {
   state = {
     modal: false,
     name: '',
@@ -203,4 +203,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   { login, register, clearErrors }
-)(ItemModal);
+)(AuthModal);

@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
-import {
-  Container,
-  Row,
-  Col
-} from 'reactstrap';
+import {Container, Row, Col} from 'reactstrap';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {Link} from "react-router-dom";
-import ItemModal from "./ItemModal";
+import AuthModal from "./AuthModal";
 
 class AppNavbar extends Component {
   state = {
@@ -18,14 +14,7 @@ class AppNavbar extends Component {
     auth: PropTypes.object.isRequired
   };
 
-  toggle = () => {
-    this.setState({
-      isOpen: !this.state.isOpen
-    });
-  };
-
   render() {
-
     return (
       <header className="header">
           <Container>
@@ -34,12 +23,10 @@ class AppNavbar extends Component {
                 <Link to="/" className="header-title" >Interval breathing</Link>
               </Col>
               <Col sm="2" className="header-right">
-                <ItemModal />
+                <AuthModal />
               </Col>
             </Row>
-
           </Container>
-
       </header>
     );
   }

@@ -8,6 +8,7 @@ import {FigureOne} from '../figures/FigureOne'
 import {FigureTwo} from '../figures/FigureTwo'
 import {FigureThree} from '../figures/FigureThree'
 import {FigureFour} from '../figures/FigureFour'
+import {FiguresPlayer} from "./FiguresPlayer";
 
 export class Player extends Component {
   state = {
@@ -23,13 +24,6 @@ export class Player extends Component {
     duration: 0,
     playbackRate: 1.0,
     loop: false
-  }
-
-  componentDidMount() {
-    FigureOne(this.sceneOne)
-    FigureTwo(this.sceneTwo)
-    FigureThree(this.sceneThree)
-    FigureFour(this.sceneFour)
   }
 
   load = url => {
@@ -129,23 +123,7 @@ export class Player extends Component {
           />
         </div>
 
-        <div className="player-container">
-          <div ref={element => this.sceneOne = element} />
-        </div>
-        <div className="player-container">
-          <div ref={element => this.sceneTwo = element} />
-        </div>
-
-        <div className="player-container">
-          <div ref={element => this.sceneThree = element}>
-            <canvas></canvas>
-          </div>
-        </div>
-        <div className="player-container">
-          <div ref={element => this.sceneFour = element}>
-            <canvas></canvas>
-          </div>
-        </div>
+        <FiguresPlayer />
 
         <div className="player-controls-container">
           <button className="play-btn" onClick={this.handlePlay}>

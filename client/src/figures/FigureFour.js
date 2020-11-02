@@ -8,7 +8,8 @@ export function FigureFour(sceneRef) {
 
   let w = sceneRef.clientWidth;
   let h = (sceneRef.clientWidth / 16) * 9;
-
+  let canvElem = document.createElement('canvas')
+  sceneRef.appendChild(canvElem)
   let c = sceneRef.children[0];
   c.width = c.w = w;
   c.height = c.h = h;
