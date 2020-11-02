@@ -33,7 +33,6 @@
   "eslintConfig": {
     "extends": "react-app"
   },
-  "proxy": "http://breath-int.aestar.com.ua:5000",
   "browserslist": [
     ">0.2%",
     "not dead",
