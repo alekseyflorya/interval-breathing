@@ -1,17 +1,17 @@
 import {GET_PARAMS, EDIT_PARAMS} from '../actions/types';
 
 const initialState = {
-  params: {
-    inhale: 2,
-    delay: 3,
-    exhale: 4,
-    pause: 5,
-    inhalePerMin: 19,
-    colour: '#010a1c',
-    figure: 0,
-    isVideo: true,
-    video: 0
-  }
+  inhale: 2,
+  delay: 3,
+  exhale: 4,
+  pause: 5,
+  inhalePerMin: 19,
+  colour: '#010a1c',
+  figure: 0,
+  isVideo: true,
+  video: 2,
+  audio: {type: 'audio', id: 1},
+  volume: 0.8
 }
 
 export default function(state = initialState, action) {
@@ -26,12 +26,13 @@ export default function(state = initialState, action) {
         colour:action.payload.colour,
         figure: action.payload.figure,
         isVideo: action.payload.isVideo,
-        video: action.payload.video
+        video: action.payload.video,
+        audio: action.payload.audio
       };
     case EDIT_PARAMS:
       return {
         ...state,
-        params: action.payload.params
+        ...action.payload.params
       };
     default:
       return state;

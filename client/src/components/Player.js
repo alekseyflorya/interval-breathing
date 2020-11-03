@@ -4,13 +4,10 @@ import { findDOMNode } from 'react-dom'
 import screenfull from 'screenfull'
 import localVideo from '../assets/videos/V-ID-1.mp4'
 import {PlayFill, PauseFill, Fullscreen, VolumeOffFill, VolumeMuteFill } from 'react-bootstrap-icons'
-import {FigureOne} from '../figures/FigureOne'
-import {FigureTwo} from '../figures/FigureTwo'
-import {FigureThree} from '../figures/FigureThree'
-import {FigureFour} from '../figures/FigureFour'
 import {FiguresPlayer} from "./FiguresPlayer";
+import {connect} from "react-redux";
 
-export class Player extends Component {
+class Player extends Component {
   state = {
     url: localVideo,//'https://www.youtube.com/watch?v=zWlkTMqRfyo',
     pip: false,
@@ -23,7 +20,7 @@ export class Player extends Component {
     loaded: 0,
     duration: 0,
     playbackRate: 1.0,
-    loop: false
+    loop: true
   }
 
   load = url => {
@@ -93,37 +90,39 @@ export class Player extends Component {
 
     return (
       <>
-        <div className="player-container">
-          <ReactPlayer
-            ref={this.ref}
-            className='react-player'
-            width='100%'
-            height='100%'
-            url={url}
-            pip={pip}
-            playing={playing}
-            controls={controls}
-            light={light}
-            loop={loop}
-            playbackRate={playbackRate}
-            volume={volume}
-            muted={muted}
-            onReady={() => console.log('onReady')}
-            onStart={() => console.log('onStart')}
-            onPlay={this.handlePlay}
-            onEnablePIP={this.handleEnablePIP}
-            onDisablePIP={this.handleDisablePIP}
-            onPause={this.handlePause}
-            onBuffer={() => console.log('onBuffer')}
-            onSeek={e => console.log('onSeek', e)}
-            onEnded={this.handleEnded}
-            onError={e => console.log('onError', e)}
-            onProgress={this.handleProgress}
-            onDuration={this.handleDuration}
-          />
-        </div>
-
-        <FiguresPlayer />
+        {this.props.isVideo ? (
+          <div className="player-container">
+            <ReactPlayer
+              ref={this.ref}
+              className='react-player'
+              width='100%'
+              height='100%'
+              url={url}
+              pip={pip}
+              playing={playing}
+              controls={controls}
+              light={light}
+              loop={loop}
+              playbackRate={playbackRate}
+              volume={volume}
+              muted={muted}
+              onReady={() => console.log('onReady')}
+              onStart={() => console.log('onStart')}
+              onPlay={this.handlePlay}
+              onEnablePIP={this.handleEnablePIP}
+              onDisablePIP={this.handleDisablePIP}
+              onPause={this.handlePause}
+              onBuffer={() => console.log('onBuffer')}
+              onSeek={e => console.log('onSeek', e)}
+              onEnded={this.handleEnded}
+              onError={e => console.log('onError', e)}
+              onProgress={this.handleProgress}
+              onDuration={this.handleDuration}
+            />
+          </div>
+        ) : (
+          <FiguresPlayer />
+        )}
 
         <div className="player-controls-container">
           <button className="play-btn" onClick={this.handlePlay}>
@@ -145,4 +144,11 @@ export class Player extends Component {
       </>
     );
   };
-};
+}
+
+const mapStateToProps = state => ({
+  video: state.params.video,
+  isVideo: state.params.isVideo,
+});
+
+export default connect(mapStateToProps)(Player)

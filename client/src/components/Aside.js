@@ -2,6 +2,7 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 import backgroundBtnImg from '../assets/images/background-btn.png'
 import breathingBhythmBtnImg from '../assets/images/breathing-rhythm-btn.png'
+import AsideInfoBlock from './AsideInfoBlock'
 
 export function Aside({buttons}) {
   return (
@@ -29,23 +30,6 @@ export function AsideButtonsBlock() {
         <img src={breathingBhythmBtnImg} alt=""/>
         <span>Breathing rhythm</span>
       </Link>
-    </div>
-  )
-}
-
-export function AsideInfoBlock() {
-  return (
-    <div className="info-block">
-      <div className="info-block-options">
-        <p><span>Inhale:</span> <strong>2 sec</strong></p>
-        <p><span>Delay:</span> <strong>2 sec</strong></p>
-        <p><span>Exhale:</span> <strong>2 sec</strong></p>
-        <p><span>Pause:</span> <strong>5 sec</strong></p>
-        <p><span>Inhalation per minute:</span> <strong>19 cycles</strong></p>
-      </div>
-      <div className="info-block-description">
-        <p>The descriptive part: what is achieved by a given breathing rhythm.</p>
-      </div>
     </div>
   )
 }

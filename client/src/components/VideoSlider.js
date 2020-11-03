@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import {connect} from 'react-redux'
 import Slider from "react-slick";
 import video1 from '../assets/videos/V-ID-1.mp4'
 import video2 from '../assets/videos/V-ID-2.mp4'
@@ -7,23 +8,21 @@ import video4 from '../assets/videos/V-ID-4.mp4'
 import video5 from '../assets/videos/V-ID-5.mp4'
 
 
-const videosArray = [video1, video2, video3, video4, video5];
+const videosArray = [{id: 0, src: video1}, {id: 1, src: video2}, {id: 2, src: video3}, {id: 3, src: video4}, {id: 4, src: video5}];
 
-export default class VideoSlider extends Component {
+class VideoSlider extends Component {
 
   render() {
-    console.log(videosArray);
     const settings = {
-      lazyLoad: true,
       infinite: true,
       speed: 500,
       slidesToShow: 4,
       slidesToScroll: 1,
       initialSlide: 0
     };
-    const sliderItems = videosArray.map((item, index) =>
-      <div className="videos-slider-item">
-        <video src={item} key={index} />
+    const sliderItems = videosArray.map(({id, src}) =>
+      <div className={`videos-slider-item ${this.props.video === id ? 'active': null}`}>
+        <video src={src} key={id} />
       </div>
     )
     return (
@@ -35,3 +34,9 @@ export default class VideoSlider extends Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  video: state.params.video,
+});
+
+export default connect(mapStateToProps)(VideoSlider)

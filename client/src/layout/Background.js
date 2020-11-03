@@ -1,13 +1,15 @@
 import React from 'react'
-import {Col, Container, Row, Input} from "reactstrap";
-import {Link} from 'react-router-dom';
+import {Col, Container, Row, Input} from "reactstrap"
+import {Link} from 'react-router-dom'
 import ColorsBox from '../components/ColorsBox'
 import VideoSlider from '../components/VideoSlider'
 import FiguresSlider from '../components/FiguresSlider'
 import AudioSlider from '../components/AudioSlider'
-import {Aside} from "../components/Aside";
+import {Aside} from '../components/Aside'
+import Preview from '../components/Preview'
+import {connect} from 'react-redux'
 
-function Background() {
+function Background({isVideo}) {
   return (
     <Container>
       <h2 className="headding-title text-center">Background</h2>
@@ -15,7 +17,7 @@ function Background() {
         <Col sm="10">
           <Row>
             <Col sm="2">
-              <Input type="radio" name="radio1" />
+              <Input type="radio" name="radio1" checked={!isVideo} />
               <h3>Colour</h3>
             </Col>
             <Col sm="9">
@@ -30,7 +32,7 @@ function Background() {
           </Row>
           <Row>
             <Col sm="11">
-              <Input type="radio" name="radio1" />
+              <Input type="radio" name="radio1" checked={isVideo} />
               <h3>Video</h3>
               <VideoSlider />
             </Col>
@@ -46,7 +48,7 @@ function Background() {
                   <div className="text-center" style={{height: '3rem'}}>
                     <input className="custom-range volume-range" type='range' min={0} max={1} step='any' />
                   </div>
-                  <AudioSlider />
+                  <AudioSlider type={'audio'} />
                 </Col>
                 <Col sm="3">
                   <div style={{display: 'flex'}}>
@@ -56,7 +58,7 @@ function Background() {
                   <div className="text-center" style={{height: '3rem'}}>
                     <input className="custom-range volume-range" type='range' min={0} max={1} step='any' />
                   </div>
-                  <AudioSlider />
+                  <AudioSlider type={'music'} />
                 </Col>
                 <Col sm="3">
                   <div style={{display: 'flex'}}>
@@ -66,7 +68,7 @@ function Background() {
                   <div className="text-center" style={{height: '3rem'}}>
                     <input className="custom-range volume-range" type='range' min={0} max={1} step='any' />
                   </div>
-                  <AudioSlider />
+                  <AudioSlider type={'binaural'} />
                 </Col>
                 <Col sm="3">
                   <div className="submit-buttons-box">
@@ -82,7 +84,7 @@ function Background() {
         </Col>
         <Col sm="2">
           <div className="preview-box">
-            <div className="preview-item">Preview</div>
+            <Preview />
           </div>
           <Aside />
         </Col>
@@ -90,5 +92,7 @@ function Background() {
     </Container>
   )
 }
-
-export default Background
+const mapStateToProps = state => ({
+  isVideo: state.params.isVideo,
+});
+export default connect(mapStateToProps)(Background)
