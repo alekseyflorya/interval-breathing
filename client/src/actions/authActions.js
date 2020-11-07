@@ -9,7 +9,10 @@ import {
   LOGIN_FAIL,
   LOGOUT_SUCCESS,
   REGISTER_SUCCESS,
-  REGISTER_FAIL
+  REGISTER_FAIL,
+  EDIT_PARAMS,
+  EDIT_SUCCESS,
+  EDIT_FAIL
 } from './types';
 
 // Check token & load user
@@ -98,6 +101,43 @@ export const logout = () => {
   return {
     type: LOGOUT_SUCCESS
   };
+};
+
+//Edit Params
+export const editParams = (params) => (dispatch, getState) => {
+  console.log('params = ',params,'getState.auth.user = ', getState().auth.user);
+  const newParams = getState().auth.user;
+  Object.entries(params).forEach(([key, value]) => newParams.params[key] = value);
+  console.log('newParams = ', newParams);
+  dispatch({
+    type: EDIT_PARAMS,
+    payload: newParams
+  })
+
+  const config = {
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  };
+
+  const body = JSON.stringify(newParams);
+
+  axios
+    .post('/api/auth/user', body, config)
+    .then(res =>
+      dispatch({
+        type: EDIT_SUCCESS,
+        payload: res.data
+      })
+    )
+    .catch(err => {
+      dispatch(
+        returnErrors(err.response.data, err.response.status, 'EDIT_FAIL')
+      );
+      dispatch({
+        type: EDIT_FAIL
+      });
+    });
 };
 
 // Setup config/headers and token

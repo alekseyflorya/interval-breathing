@@ -1,7 +1,8 @@
 import React from "react";
 import {connect} from "react-redux";
 
-function AsideInfoBlock({inhale, delay, exhale, pause, inhalePerMin}) {
+function AsideInfoBlock({inhale, delay, exhale, pause}) {
+
   return (
     <div className="info-block">
       <div className="info-block-options">
@@ -9,7 +10,6 @@ function AsideInfoBlock({inhale, delay, exhale, pause, inhalePerMin}) {
         <p><span>Delay:</span> <strong>{delay} sec</strong></p>
         <p><span>Exhale:</span> <strong>{exhale} sec</strong></p>
         <p><span>Pause:</span> <strong>{pause} sec</strong></p>
-        <p><span>Inhalation per minute:</span> <strong>{inhalePerMin} cycles</strong></p>
       </div>
       <div className="info-block-description">
         <p>The descriptive part: what is achieved by a given breathing rhythm.</p>
@@ -22,8 +22,7 @@ const mapStateToProps = state => ({
   inhale: state.auth.user.params.inhale,
   delay: state.auth.user.params.delay,
   exhale: state.auth.user.params.exhale,
-  pause: state.auth.user.params.pause,
-  inhalePerMin: state.auth.user.params.inhalePerMin
+  pause: state.auth.user.params.pause
 });
 
 export default connect(mapStateToProps)(AsideInfoBlock);

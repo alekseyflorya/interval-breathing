@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { login } from '../actions/authActions';
 import { register } from '../actions/authActions';
 import { clearErrors } from '../actions/errorActions';
-import {PersonFill } from 'react-bootstrap-icons'
+import { PersonFill } from 'react-bootstrap-icons'
 import Logout from './auth/Logout';
 import PropTypes from 'prop-types';
 

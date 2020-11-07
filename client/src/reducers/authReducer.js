@@ -7,6 +7,9 @@ import {
   LOGOUT_SUCCESS,
   REGISTER_SUCCESS,
   REGISTER_FAIL,
+  EDIT_PARAMS,
+  EDIT_SUCCESS,
+  EDIT_FAIL
 } from '../actions/types';
 
 const initialState = {
@@ -14,7 +17,7 @@ const initialState = {
   isAuthenticated: null,
   isLoading: false,
   user: {
-    id: null,
+    _id: null,
     name: null,
     email: null,
     params: {
@@ -22,7 +25,6 @@ const initialState = {
       delay: 30,
       exhale: 40,
       pause: 50,
-      inhalePerMin: 190,
       colour: '#010a1c',
       figure: 0,
       isVideo: true,
@@ -31,7 +33,9 @@ const initialState = {
         trackType: 'audio',
         trackId: 1
       },
-      volume: 0.8
+      volume: 0.8,
+      useSuggestedRhythms: true,
+      suggestedRhythm: 1
     }
   }
 };
@@ -68,11 +72,22 @@ export default function(state = initialState, action) {
       console.log('AUTH_ERROR, LOGIN_FAIL, LOGOUT_SUCCESS, REGISTER_FAIL = ', action.payload)
       localStorage.removeItem('token');
       return {
-        ...state,
+        ...initialState,
         token: null,
         isAuthenticated: false,
-        isLoading: false
+        isLoading: false,
       };
+    case EDIT_PARAMS:
+    case EDIT_SUCCESS:
+      console.log('EDIT_PARAMS, EDIT_SUCCESS = ', action.payload)
+      return {
+        ...state,
+        ...action.payload
+      }
+    case EDIT_FAIL:
+      return {
+        ...state
+      }
     default:
       return state;
   }

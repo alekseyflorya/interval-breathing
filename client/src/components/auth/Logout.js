@@ -1,25 +1,25 @@
-import React, { Component, Fragment } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { logout } from '../../actions/authActions';
-import PropTypes from 'prop-types';
+import { BoxArrowRight } from 'react-bootstrap-icons'
 
-export class Logout extends Component {
-  static propTypes = {
-    logout: PropTypes.func.isRequired
-  };
+function Logout({userName, logout}) {
 
-  render() {
-    return (
-      <Fragment>
-        <button onClick={this.props.logout}>
-          Logout
-        </button>
-      </Fragment>
-    );
-  }
+  return (
+    <>
+      <span style={{fontSize: '1.5rem', color: '#fff', marginRight: '10px', verticalAlign: 'middle'}}>Hi, <strong>{userName}</strong></span>
+      <button onClick={logout} className="sign-out-btn">
+        <BoxArrowRight />
+      </button>
+    </>
+  );
 }
 
+const mapStateToProps = state => ({
+  userName: state.auth.user.name
+});
+
 export default connect(
-  null,
+  mapStateToProps,
   { logout }
 )(Logout);

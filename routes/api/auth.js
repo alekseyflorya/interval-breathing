@@ -39,7 +39,7 @@ router.post('/', (req, res) => {
               res.json({
                 token,
                 user: {
-                  id: user.id,
+                  _id: user.id,
                   name: user.name,
                   email: user.email,
                   params: user.params
@@ -60,11 +60,11 @@ router.get('/user', auth, (req, res) => {
     .then(user => res.json(user));
 });
 
-router.post('/user', auth, (req, res) => {
-  console.log('req.body.id', req.user.id);
-  console.log('req.body.params', req.user.params);
-  const id = req.user.id;
-  const params = req.user.params;
+router.post('/user', (req, res) => {
+  console.log('req.body._id', req.body._id);
+  console.log('req.body.params', req.body.params);
+  const id = req.body._id;
+  const params = req.body.params;
 
   User.findByIdAndUpdate(id, {params: params},
     (err, user) => {
@@ -77,5 +77,6 @@ router.post('/user', auth, (req, res) => {
       }
     });
 });
+
 
 module.exports = router;

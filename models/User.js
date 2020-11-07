@@ -24,7 +24,6 @@ const schema = new Schema({
     delay: {type: Number, default: 3},
     exhale: {type: Number, default: 4},
     pause: {type: Number, default: 5},
-    inhalePerMin: {type: Number, default: 19},
     colour: {type: String, default: '#010a1c'},
     figure: {type: Number, default: 0},
     isVideo: {type: Boolean, default: true},
@@ -32,7 +31,9 @@ const schema = new Schema({
     audio: {trackType: {
       type: String, default: 'audio'},
       trackId: {type: Number, default: 1}},
-    volume: {type: Number, default: 0.8}
+    volume: {type: Number, default: 0.8},
+    useSuggestedRhythms: {type: Boolean, default: true},
+    suggestedRhythm: {type: Number, default: 1}
   }
 });
 

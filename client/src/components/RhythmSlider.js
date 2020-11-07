@@ -1,8 +1,9 @@
 import React from "react"
 import Slider from "react-slick"
 import {connect} from 'react-redux'
+import {editParams} from "../actions/authActions"
 
-function RhythmSlider({rhythms}) {
+function RhythmSlider({rhythm, editParams, suggestedRhythm}) {
 
   const settings = {
     infinite: true,
@@ -17,9 +18,14 @@ function RhythmSlider({rhythms}) {
     }
   };
 
-  const tracks = rhythms.map(({name, id}) => (
+  const rhythmHandler = (e) => {
+    console.log(e.target.id)
+    editParams({suggestedRhythm: Number(e.target.id)})
+  }
+
+  const tracks = rhythm.map(({name, id}) => (
     <div key={id}>
-      <h4>{name}</h4>
+      <h4 className={suggestedRhythm === id ? 'active' : null} id={id} onClick={rhythmHandler}>{name}</h4>
     </div>
   ))
 
@@ -35,7 +41,7 @@ function RhythmSlider({rhythms}) {
 }
 
 const mapStateToProps = state => ({
-  audio: state.auth.user.params.audio,
+  suggestedRhythm: state.auth.user.params.suggestedRhythm,
 });
 
-export default connect(mapStateToProps)(RhythmSlider)
+export default connect(mapStateToProps, {editParams})(RhythmSlider)
