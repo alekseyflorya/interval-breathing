@@ -41,7 +41,8 @@ router.post('/', (req, res) => {
                 user: {
                   id: user.id,
                   name: user.name,
-                  email: user.email
+                  email: user.email,
+                  params: user.params
                 }
               });
             }
@@ -57,6 +58,24 @@ router.get('/user', auth, (req, res) => {
   User.findById(req.user.id)
     .select('-password')
     .then(user => res.json(user));
+});
+
+router.post('/user', auth, (req, res) => {
+  console.log('req.body.id', req.user.id);
+  console.log('req.body.params', req.user.params);
+  const id = req.user.id;
+  const params = req.user.params;
+
+  User.findByIdAndUpdate(id, {params: params},
+    (err, user) => {
+      if (err) {
+        console.log(err);
+        throw err;
+      } else {
+        res.json(user);
+        console.log('Params updated successfully !', user)
+      }
+    });
 });
 
 module.exports = router;

@@ -38,7 +38,7 @@ function AudioSlider({type, audio}) {
 
   const tracks = audioTracks.filter(item => item.type === type).map(({type, name, id}) => (
     <div key={id}>
-      <h4 style={{fontWeight: `${ audio.type === type && audio.id === id ? 'bold': 'normal' }`}}>{name} {id+1}</h4>
+      <h4 className={`${ audio.trackType === type && audio.trackId === id ? 'active': null }`} style={{fontWeight: `${ audio.trackType === type && audio.trackId === id ? 'bold': 'normal' }`}}>{name} {id+1}</h4>
     </div>
   ))
 
@@ -54,7 +54,7 @@ function AudioSlider({type, audio}) {
 }
 
 const mapStateToProps = state => ({
-  audio: state.params.audio,
+  audio: state.auth.user.params.audio,
 });
 
 export default connect(mapStateToProps)(AudioSlider)

@@ -27,6 +27,12 @@
 .headding-title{
   color: #ffffff;
 }
+label{
+  font-weight: 500;
+  font-size: 1.75rem;
+  line-height: 1.2;
+  margin-left: 1rem;
+}
 .sign-btn{
   color: #ffffff;
   background: #003762;
@@ -115,11 +121,10 @@
   margin-bottom: 30px;
 }
 .info-block{
-
   border-radius: 30px;
-  background-color: rgba( 255, 255, 255, 0.2 );
+  background-color: rgba( 255, 255, 255, 0.3);
   padding: 2rem 1rem;
-  box-shadow: 0 8px 16px rgba(0,0,0,.25);
+  box-shadow: 0 8px 16px rgba(0,0,0,.3);
 }
 .info-block p {
   line-height: 1.3rem;
@@ -127,6 +132,15 @@
 }
 .info-block strong {
   font-size: 1.5rem;
+}
+.info-block.d-flex p {
+  font-size: 1.2rem;
+}
+.info-block.d-flex span {
+  font-size: 1rem;
+}
+.info-block.d-flex strong {
+  font-size: 1rem;
 }
 .info-block-options {
   margin-bottom: 1rem;
@@ -184,16 +198,25 @@
   margin-left: -50%;
 }
 .preview-item{
-  background-color: #ffffff;
   height: 10rem;
   border-radius: 20px;
-  text-align: center;
+  overflow: hidden;
+}
+.preview-item video{
+  max-width: 100%;
+  border-radius: 20px;
 }
 .audio-slider-container{
   border-radius: 30px;
   padding: 2rem 1rem;
-  box-shadow: 0 8px 16px rgba(0,0,0,.25);
-  background-color: rgba( 255, 255, 255, 0.2 );
+  box-shadow: 0 8px 16px rgba(0,0,0,.3);
+  background-color: rgba( 255, 255, 255, 0.3 );
+}
+.audio-slider-container .active{
+  background-color: #003762;
+  color: #ffffff;
+  padding: 5px 10px;
+  transition: .2s;
 }
 .audio-slider-container .slick-prev,
 .audio-slider-container .slick-next{

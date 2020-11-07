@@ -19,7 +19,7 @@ function ColorsBox({colour}) {
 }
 
 const mapStateToProps = state => ({
-  colour: state.params.colour
+  colour: state.auth.user.params.colour
 });
 
 export default connect(mapStateToProps)(ColorsBox)

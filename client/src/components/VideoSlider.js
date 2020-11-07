@@ -11,6 +11,14 @@ import video5 from '../assets/videos/V-ID-5.mp4'
 const videosArray = [{id: 0, src: video1}, {id: 1, src: video2}, {id: 2, src: video3}, {id: 3, src: video4}, {id: 4, src: video5}];
 
 class VideoSlider extends Component {
+  state = {
+    videoStateId: this.props.video,
+    params: {}
+  }
+
+  handleVideo(id) {
+    this.setState({videoStateId: id})
+  }
 
   render() {
     const settings = {
@@ -21,22 +29,31 @@ class VideoSlider extends Component {
       initialSlide: 0
     };
     const sliderItems = videosArray.map(({id, src}) =>
-      <div className={`videos-slider-item ${this.props.video === id ? 'active': null}`}>
-        <video src={src} key={id} />
+      <div
+        key={id}
+        className={`videos-slider-item ${this.props.video === id ? 'active': null}`}
+
+      >
+        <video src={src} key={id} onClick={this.handleVideo.bind(this, id)} />
       </div>
     )
+
+    console.log(this.state.videoStateId)
+
     return (
-      <div className="videos-slider">
-        <Slider {...settings}>
-          {sliderItems}
-        </Slider>
-      </div>
+      <>
+        <div className="videos-slider">
+          <Slider {...settings}>
+            {sliderItems}
+          </Slider>
+        </div>
+      </>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  video: state.params.video,
+  video: state.auth.user.params.video,
 });
 
 export default connect(mapStateToProps)(VideoSlider)

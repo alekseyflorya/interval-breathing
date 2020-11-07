@@ -42,7 +42,7 @@ class FiguresSlider extends Component {
 }
 
 const mapStateToProps = state => ({
-  figure: state.params.figure,
+  figure: state.auth.user.params.figure,
 });
 
 export default connect(mapStateToProps)(FiguresSlider)

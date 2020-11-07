@@ -6,14 +6,34 @@ import {
   LOGIN_FAIL,
   LOGOUT_SUCCESS,
   REGISTER_SUCCESS,
-  REGISTER_FAIL
+  REGISTER_FAIL,
 } from '../actions/types';
 
 const initialState = {
   token: localStorage.getItem('token'),
   isAuthenticated: null,
   isLoading: false,
-  user: null
+  user: {
+    id: null,
+    name: null,
+    email: null,
+    params: {
+      inhale: 20,
+      delay: 30,
+      exhale: 40,
+      pause: 50,
+      inhalePerMin: 190,
+      colour: '#010a1c',
+      figure: 0,
+      isVideo: true,
+      video: 2,
+      audio: {
+        trackType: 'audio',
+        trackId: 1
+      },
+      volume: 0.8
+    }
+  }
 };
 
 export default function(state = initialState, action) {
@@ -24,6 +44,7 @@ export default function(state = initialState, action) {
         isLoading: true
       };
     case USER_LOADED:
+      console.log('USER_LOADED = ID: ', action.payload._id, 'PARAMS: ', action.payload.params)
       return {
         ...state,
         isAuthenticated: true,
@@ -32,22 +53,23 @@ export default function(state = initialState, action) {
       };
     case LOGIN_SUCCESS:
     case REGISTER_SUCCESS:
+      console.log('LOGIN_SUCCESS, REGISTER_SUCCESS = ', action.payload)
       localStorage.setItem('token', action.payload.token);
       return {
         ...state,
         ...action.payload,
         isAuthenticated: true,
-        isLoading: false
+        isLoading: false,
       };
     case AUTH_ERROR:
     case LOGIN_FAIL:
     case LOGOUT_SUCCESS:
     case REGISTER_FAIL:
+      console.log('AUTH_ERROR, LOGIN_FAIL, LOGOUT_SUCCESS, REGISTER_FAIL = ', action.payload)
       localStorage.removeItem('token');
       return {
         ...state,
         token: null,
-        user: null,
         isAuthenticated: false,
         isLoading: false
       };

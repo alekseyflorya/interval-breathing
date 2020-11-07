@@ -147,8 +147,8 @@ class Player extends Component {
 }
 
 const mapStateToProps = state => ({
-  video: state.params.video,
-  isVideo: state.params.isVideo,
+  video: state.auth.user.params.video,
+  isVideo: state.auth.user.params.isVideo,
 });
 
 export default connect(mapStateToProps)(Player)

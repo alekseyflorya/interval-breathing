@@ -9,7 +9,6 @@ const app = express();
 app.use(express.json({ extended: true }));
 
 // Use Routes
-app.use('/api/params', require('./routes/api/params'));
 app.use('/api/users', require('./routes/api/users'));
 app.use('/api/auth', require('./routes/api/auth'));
 
@@ -30,7 +29,8 @@ async function start() {
     await mongoose.connect(config.get('mongoURI'), {
       useNewUrlParser: true,
       useUnifiedTopology: true,
-      useCreateIndex: true
+      useCreateIndex: true,
+      useFindAndModify: false
     })
     app.listen(PORT, () => console.log(`App has been started on port ${PORT}...`))
   } catch (e) {
