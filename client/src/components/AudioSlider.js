@@ -1,6 +1,7 @@
 import React from "react"
 import Slider from "react-slick"
 import {connect} from 'react-redux'
+import {editParams} from "../actions/authActions"
 
 const audioTracks = [
   {type: 'audio', name: 'Audio', id: 0},
@@ -8,20 +9,19 @@ const audioTracks = [
   {type: 'audio', name: 'Audio', id: 2},
   {type: 'audio', name: 'Audio', id: 3},
   {type: 'audio', name: 'Audio', id: 4},
-  {type: 'music', name: 'Music', id: 0},
-  {type: 'music', name: 'Music', id: 1},
-  {type: 'music', name: 'Music', id: 2},
-  {type: 'music', name: 'Music', id: 3},
-  {type: 'music', name: 'Music', id: 4},
-  {type: 'binaural', name: 'Binaural', id: 0},
-  {type: 'binaural', name: 'Binaural', id: 1},
-  {type: 'binaural', name: 'Binaural', id: 2},
-  {type: 'binaural', name: 'Binaural', id: 3},
-  {type: 'binaural', name: 'Binaural', id: 4}
+  {type: 'music', name: 'Music', id: 5},
+  {type: 'music', name: 'Music', id: 6},
+  {type: 'music', name: 'Music', id: 7},
+  {type: 'music', name: 'Music', id: 8},
+  {type: 'binaural', name: 'Binaural', id: 9},
+  {type: 'binaural', name: 'Binaural', id: 10},
+  {type: 'binaural', name: 'Binaural', id: 11},
+  {type: 'binaural', name: 'Binaural', id: 12},
+  {type: 'binaural', name: 'Binaural', id: 13}
 ]
 
 
-function AudioSlider({type, audio}) {
+function AudioSlider({type, audio, editParams}) {
 
   const settings = {
     infinite: true,
@@ -36,9 +36,21 @@ function AudioSlider({type, audio}) {
     }
   };
 
+  const handleClick = (e) => {
+    editParams({audio: {trackType: e.target.title, trackId: Number(e.target.id)}})
+  }
+
   const tracks = audioTracks.filter(item => item.type === type).map(({type, name, id}) => (
     <div key={id}>
-      <h4 className={`${ audio.trackType === type && audio.trackId === id ? 'active': null }`} style={{fontWeight: `${ audio.trackType === type && audio.trackId === id ? 'bold': 'normal' }`}}>{name} {id+1}</h4>
+      <h4
+        className={`${audio.trackId === id ? 'active': null }`}
+        style={{fontWeight: `${audio.trackId === id ? 'bold': 'normal' }`}}
+        id={id}
+        title={type}
+        onClick={handleClick}
+      >
+        {name} {id+1}
+      </h4>
     </div>
   ))
 
@@ -57,4 +69,4 @@ const mapStateToProps = state => ({
   audio: state.auth.user.params.audio,
 });
 
-export default connect(mapStateToProps)(AudioSlider)
+export default connect(mapStateToProps, {editParams})(AudioSlider)
