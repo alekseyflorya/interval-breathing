@@ -5,8 +5,13 @@ import video2 from '../assets/videos/V-ID-2.mp4'
 import video3 from '../assets/videos/V-ID-3.mp4'
 import video4 from '../assets/videos/V-ID-4.mp4'
 import video5 from '../assets/videos/V-ID-5.mp4'
+import {FigureOne} from "../figures/FigureOne";
+import {FigureTwo} from "../figures/FigureTwo";
+import {FigureThree} from "../figures/FigureThree";
+import {FigureFour} from "../figures/FigureFour";
 
 const videosArray = [{id: 0, src: video1}, {id: 1, src: video2}, {id: 2, src: video3}, {id: 3, src: video4}, {id: 4, src: video5}];
+const figures = [FigureOne, FigureTwo, FigureThree, FigureFour]
 
 function Preview({video, figure, colour, isVideo}) {
   const videoItem = videosArray.filter(({id}) => id === video)[0]
@@ -19,7 +24,6 @@ function Preview({video, figure, colour, isVideo}) {
           </div>
         ):(
           <div className="preview-item" style={{background: colour}}>
-            Preview
           </div>
         )}
     </>

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import {connect} from 'react-redux'
 import Slider from "react-slick";
+import {editParams} from "../actions/authActions"
 import video1 from '../assets/videos/V-ID-1.mp4'
 import video2 from '../assets/videos/V-ID-2.mp4'
 import video3 from '../assets/videos/V-ID-3.mp4'
@@ -12,12 +13,12 @@ const videosArray = [{id: 0, src: video1}, {id: 1, src: video2}, {id: 2, src: vi
 
 class VideoSlider extends Component {
   state = {
-    videoStateId: this.props.video,
-    params: {}
+    videoStateId: this.props.video
   }
 
   handleVideo(id) {
     this.setState({videoStateId: id})
+    this.props.editParams({video: Number(id)})
   }
 
   render() {
@@ -38,8 +39,6 @@ class VideoSlider extends Component {
       </div>
     )
 
-    console.log(this.state.videoStateId)
-
     return (
       <>
         <div className="videos-slider">
@@ -54,6 +53,7 @@ class VideoSlider extends Component {
 
 const mapStateToProps = state => ({
   video: state.auth.user.params.video,
+  isVideo: state.auth.user.params.isVideo
 });
 
-export default connect(mapStateToProps)(VideoSlider)
+export default connect(mapStateToProps, {editParams})(VideoSlider)

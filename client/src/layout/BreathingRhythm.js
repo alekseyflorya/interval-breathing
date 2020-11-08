@@ -53,7 +53,7 @@ function BreathingRhythm ({inhale, delay, exhale, pause, useSuggestedRhythms, su
         pause: rhythms[suggestedRhythm].pause
       })
     }
-  },[suggestedRhythm])
+  },[suggestedRhythm, useSuggestedRhythms])
 
   const handleChange = (e) => {
     setUserRhythm({...userRhythm, [e.target.name]: e.target.value})

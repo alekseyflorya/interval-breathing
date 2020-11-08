@@ -5,11 +5,15 @@ import figureTwoImg from '../assets/images/figure-2.jpg'
 import figureThreeImg from '../assets/images/figure-3.jpg'
 import figureFourImg from '../assets/images/figure-4.jpg'
 import {connect} from 'react-redux'
+import {editParams} from "../actions/authActions"
 
 class FiguresSlider extends Component {
-
-  toggleFigure() {
-    console.log(this.props.figure)
+  state = {
+    figureStateId: this.props.figure
+  }
+  toggleFigure(id) {
+    this.setState({figureStateId: id})
+    this.props.editParams({figure: Number(id)})
   }
 
   render() {
@@ -23,16 +27,16 @@ class FiguresSlider extends Component {
     return (
       <div className="figures-slider">
         <Slider {...settings}>
-          <div className={`figures-slider-item ${ this.props.figure === 0 ? 'active' : null}`} onClick={this.toggleFigure.bind(this)}>
+          <div className={`figures-slider-item ${ this.props.figure === 0 ? 'active' : null}`} onClick={this.toggleFigure.bind(this, 0)}>
             <img src={figureOneImg} alt="" className="img-fluid" />
           </div>
-          <div className={`figures-slider-item ${ this.props.figure === 1 ? 'active' : null}`} onClick={this.toggleFigure.bind(this)}>
+          <div className={`figures-slider-item ${ this.props.figure === 1 ? 'active' : null}`} onClick={this.toggleFigure.bind(this, 1)}>
             <img src={figureTwoImg} alt="" className="img-fluid" />
           </div>
-          <div className={`figures-slider-item ${ this.props.figure === 2 ? 'active' : null}`} onClick={this.toggleFigure.bind(this)}>
+          <div className={`figures-slider-item ${ this.props.figure === 2 ? 'active' : null}`} onClick={this.toggleFigure.bind(this, 2)}>
             <img src={figureThreeImg} alt="" className="img-fluid" />
           </div>
-          <div className={`figures-slider-item ${ this.props.figure === 3 ? 'active' : null}`} onClick={this.toggleFigure.bind(this)}>
+          <div className={`figures-slider-item ${ this.props.figure === 3 ? 'active' : null}`} onClick={this.toggleFigure.bind(this, 3)}>
             <img src={figureFourImg} alt="" className="img-fluid" />
           </div>
         </Slider>
@@ -45,4 +49,4 @@ const mapStateToProps = state => ({
   figure: state.auth.user.params.figure,
 });
 
-export default connect(mapStateToProps)(FiguresSlider)
+export default connect(mapStateToProps, {editParams})(FiguresSlider)

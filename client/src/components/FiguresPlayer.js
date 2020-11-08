@@ -3,15 +3,14 @@ import {FigureOne} from "../figures/FigureOne";
 import {FigureTwo} from "../figures/FigureTwo";
 import {FigureThree} from "../figures/FigureThree";
 import {FigureFour} from "../figures/FigureFour";
+import {connect} from "react-redux";
 
-export class FiguresPlayer extends Component {
-  state = {
-    selectedFigure: 3,
-    figures: [FigureOne, FigureTwo, FigureThree, FigureFour]
-  }
+class FiguresPlayer extends Component {
+
+  figures = [FigureOne, FigureTwo, FigureThree, FigureFour]
 
   componentDidMount() {
-    this.state.figures[this.state.selectedFigure](this.scene)
+    this.figures[this.props.figure](this.scene)
   }
 
   render() {
@@ -25,3 +24,9 @@ export class FiguresPlayer extends Component {
     )
   }
 }
+
+const mapStateToProps = state => ({
+  figure: state.auth.user.params.figure,
+});
+
+export default connect(mapStateToProps)(FiguresPlayer)

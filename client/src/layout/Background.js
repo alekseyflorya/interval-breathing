@@ -7,8 +7,17 @@ import FiguresSlider from '../components/FiguresSlider'
 import AudioSlider from '../components/AudioSlider'
 import {Aside} from '../components/Aside'
 import Preview from '../components/Preview'
+import {connect} from 'react-redux'
+import {editParams} from "../actions/authActions"
 
-function Background() {
+function Background({isVideo, editParams}) {
+
+  const [checkedVideo, setCheckedVideo] = React.useState(isVideo)
+
+  const handleChange = () => {
+    setCheckedVideo(!checkedVideo)
+    editParams({isVideo: !checkedVideo})
+  }
 
   return (
     <Container>
@@ -17,7 +26,7 @@ function Background() {
         <Col sm="10">
           <Row>
             <Col sm="2">
-              <Input type="radio" name="radio1" />
+              <input type="radio" name="checkedVideo" checked={!checkedVideo} onChange={handleChange} />
               <h3>Colour</h3>
             </Col>
             <Col sm="9">
@@ -32,7 +41,7 @@ function Background() {
           </Row>
           <Row>
             <Col sm="11">
-              <Input type="radio" name="radio1" />
+              <input type="radio" name="checkedVideo" checked={checkedVideo} onChange={handleChange} />
               <h3>Video</h3>
               <VideoSlider />
             </Col>
@@ -84,4 +93,8 @@ function Background() {
   )
 }
 
-export default Background
+const mapStateToProps = state => ({
+  isVideo: state.auth.user.params.isVideo
+})
+
+export default connect(mapStateToProps, {editParams})(Background)

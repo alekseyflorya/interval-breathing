@@ -2,14 +2,21 @@ import React, { Component } from 'react'
 import ReactPlayer from 'react-player'
 import { findDOMNode } from 'react-dom'
 import screenfull from 'screenfull'
-import localVideo from '../assets/videos/V-ID-1.mp4'
 import {PlayFill, PauseFill, Fullscreen, VolumeOffFill, VolumeMuteFill } from 'react-bootstrap-icons'
-import {FiguresPlayer} from "./FiguresPlayer";
+import FiguresPlayer from "./FiguresPlayer";
 import {connect} from "react-redux";
+
+import video1 from '../assets/videos/V-ID-1.mp4'
+import video2 from '../assets/videos/V-ID-2.mp4'
+import video3 from '../assets/videos/V-ID-3.mp4'
+import video4 from '../assets/videos/V-ID-4.mp4'
+import video5 from '../assets/videos/V-ID-5.mp4'
+
+const videosArray = [{id: 0, src: video1}, {id: 1, src: video2}, {id: 2, src: video3}, {id: 3, src: video4}, {id: 4, src: video5}];
 
 class Player extends Component {
   state = {
-    url: localVideo,//'https://www.youtube.com/watch?v=zWlkTMqRfyo',
+    url: videosArray[this.props.video].src,
     pip: false,
     playing: false,
     controls: false,
@@ -20,7 +27,8 @@ class Player extends Component {
     loaded: 0,
     duration: 0,
     playbackRate: 1.0,
-    loop: true
+    loop: true,
+    isFullscreen: false
   }
 
   load = url => {
@@ -80,13 +88,14 @@ class Player extends Component {
 
   handleClickFullscreen = () => {
     screenfull.request(findDOMNode(this.player))
+    this.setState({isFullscreen: !this.state.isFullscreen})
   }
 
   ref = player => {
     this.player = player
   }
   render() {
-    const { url, playing, controls, light, volume, muted, loop, playbackRate, pip } = this.state
+    const { url, playing, controls, light, volume, muted, loop, playbackRate, pip, isFullscreen } = this.state
 
     return (
       <>
@@ -121,7 +130,7 @@ class Player extends Component {
             />
           </div>
         ) : (
-          <FiguresPlayer />
+          <FiguresPlayer fullscreen={isFullscreen} />
         )}
 
         <div className="player-controls-container">
