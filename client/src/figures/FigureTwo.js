@@ -1,14 +1,16 @@
 import * as THREE from 'three'
 
 export function FigureTwo(sceneRef) {
+
     var width = sceneRef.clientWidth
     var height = (sceneRef.clientWidth/16)*12
     var scene = new THREE.Scene();
     var camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
     camera.position.z = 40;
 
-    var renderer = new THREE.WebGLRenderer();
+    var renderer = new THREE.WebGLRenderer({ alpha: true });
     renderer.setSize(width, height);
+    renderer.setClearColor( 0x000000, 0 );
     sceneRef.appendChild(renderer.domElement);
 
     var frontSpot = new THREE.SpotLight(0xeeeece);

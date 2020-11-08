@@ -105,10 +105,9 @@ export const logout = () => {
 
 //Edit Params
 export const editParams = (params) => (dispatch, getState) => {
-  console.log('params = ',params,'getState.auth.user = ', getState().auth.user);
   const newParams = getState().auth.user;
   Object.entries(params).forEach(([key, value]) => newParams.params[key] = value);
-  console.log('newParams = ', newParams);
+
   dispatch({
     type: EDIT_PARAMS,
     payload: newParams

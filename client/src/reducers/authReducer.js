@@ -48,7 +48,6 @@ export default function(state = initialState, action) {
         isLoading: true
       };
     case USER_LOADED:
-      console.log('USER_LOADED = ID: ', action.payload._id, 'PARAMS: ', action.payload.params)
       return {
         ...state,
         isAuthenticated: true,
@@ -57,7 +56,6 @@ export default function(state = initialState, action) {
       };
     case LOGIN_SUCCESS:
     case REGISTER_SUCCESS:
-      console.log('LOGIN_SUCCESS, REGISTER_SUCCESS = ', action.payload)
       localStorage.setItem('token', action.payload.token);
       return {
         ...state,
@@ -69,7 +67,6 @@ export default function(state = initialState, action) {
     case LOGIN_FAIL:
     case LOGOUT_SUCCESS:
     case REGISTER_FAIL:
-      console.log('AUTH_ERROR, LOGIN_FAIL, LOGOUT_SUCCESS, REGISTER_FAIL = ', action.payload)
       localStorage.removeItem('token');
       return {
         ...initialState,
@@ -79,7 +76,6 @@ export default function(state = initialState, action) {
       };
     case EDIT_PARAMS:
     case EDIT_SUCCESS:
-      console.log('EDIT_PARAMS, EDIT_SUCCESS = ', action.payload)
       return {
         ...state,
         ...action.payload

@@ -61,8 +61,6 @@ router.get('/user', auth, (req, res) => {
 });
 
 router.post('/user', (req, res) => {
-  console.log('req.body._id', req.body._id);
-  console.log('req.body.params', req.body.params);
   const id = req.body._id;
   const params = req.body.params;
 
@@ -73,7 +71,7 @@ router.post('/user', (req, res) => {
         throw err;
       } else {
         res.json(user);
-        console.log('Params updated successfully !', user)
+        console.log('Params updated successfully !')
       }
     });
 });

@@ -8,11 +8,13 @@ export default function AppNavbar() {
     <header className="header">
       <Container>
         <Row>
-          <Col sm="10" className="header-left">
-            <Link to="/" className="header-title" >Interval breathing</Link>
-          </Col>
-          <Col sm="2" className="header-right">
+          <Col sm={{ size: 3, offset: 9 }} className="header-right">
             <AuthModal />
+          </Col>
+        </Row>
+        <Row>
+          <Col sm="12" className="header-left">
+            <Link to="/" className="header-title" >Interval breathing</Link>
           </Col>
         </Row>
       </Container>

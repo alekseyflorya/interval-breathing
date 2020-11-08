@@ -31,6 +31,7 @@ export function FigureThree(sceneRef) {
       $.fillStyle = 'hsla(0,0%,0%,.05)';
       $.fillRect(0, 0, w, w);
 
+
       $.strokeStyle = `hsla(${p / 5},95%, 0%,1)`;
       $.lineWidth = 2
 

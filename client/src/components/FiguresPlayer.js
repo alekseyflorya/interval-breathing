@@ -17,7 +17,7 @@ class FiguresPlayer extends Component {
 
     return (
       <>
-        <div className="player-container">
+        <div className="player-container" style={{background: this.props.colour}}>
           <div ref={element => this.scene = element} />
         </div>
       </>
@@ -27,6 +27,7 @@ class FiguresPlayer extends Component {
 
 const mapStateToProps = state => ({
   figure: state.auth.user.params.figure,
+  colour: state.auth.user.params.colour
 });
 
 export default connect(mapStateToProps)(FiguresPlayer)

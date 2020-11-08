@@ -94,7 +94,7 @@ function Background({isVideo, editParams}) {
 }
 
 const mapStateToProps = state => ({
-  isVideo: state.auth.user.params.isVideo
+  isVideo: state.auth.user.params.isVideo,
 })
 
 export default connect(mapStateToProps, {editParams})(Background)

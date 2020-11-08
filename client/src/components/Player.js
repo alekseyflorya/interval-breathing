@@ -15,6 +15,7 @@ import video5 from '../assets/videos/V-ID-5.mp4'
 const videosArray = [{id: 0, src: video1}, {id: 1, src: video2}, {id: 2, src: video3}, {id: 3, src: video4}, {id: 4, src: video5}];
 
 class Player extends Component {
+
   state = {
     url: videosArray[this.props.video].src,
     pip: false,
@@ -28,7 +29,6 @@ class Player extends Component {
     duration: 0,
     playbackRate: 1.0,
     loop: true,
-    isFullscreen: false
   }
 
   load = url => {
@@ -88,14 +88,14 @@ class Player extends Component {
 
   handleClickFullscreen = () => {
     screenfull.request(findDOMNode(this.player))
-    this.setState({isFullscreen: !this.state.isFullscreen})
   }
 
   ref = player => {
     this.player = player
   }
+
   render() {
-    const { url, playing, controls, light, volume, muted, loop, playbackRate, pip, isFullscreen } = this.state
+    const { url, playing, controls, light, volume, muted, loop, playbackRate, pip } = this.state
 
     return (
       <>
@@ -130,7 +130,7 @@ class Player extends Component {
             />
           </div>
         ) : (
-          <FiguresPlayer fullscreen={isFullscreen} />
+          <FiguresPlayer />
         )}
 
         <div className="player-controls-container">
@@ -157,6 +157,8 @@ class Player extends Component {
 
 const mapStateToProps = state => ({
   video: state.auth.user.params.video,
+  colour: state.auth.user.params.colour,
+  figure: state.auth.user.params.figure,
   isVideo: state.auth.user.params.isVideo,
 });
 

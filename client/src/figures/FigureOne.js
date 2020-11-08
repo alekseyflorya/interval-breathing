@@ -1,16 +1,18 @@
 import * as THREE from 'three'
 
 export function FigureOne(sceneRef) {
-
     let phase = 0;
 
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x000000);
+    //scene.background = new THREE.Color(bgColour);
     const camera = new THREE.PerspectiveCamera(95, sceneRef.clientWidth / ((sceneRef.clientWidth/16)*12), 0.1, 1000);
     camera.position.z = 30;
 
-    const renderer = new THREE.WebGLRenderer();
+    const renderer = new THREE.WebGLRenderer({ alpha: true });
+
     renderer.setSize(sceneRef.clientWidth, (sceneRef.clientWidth/16)*12);
+    renderer.setClearColor( 0x000000, 0 );
+    renderer.setPixelRatio( window.devicePixelRatio );
     sceneRef.appendChild(renderer.domElement);
 
     const frontSpot = new THREE.SpotLight(0xeeeece);
@@ -70,9 +72,10 @@ export function FigureOne(sceneRef) {
     }
 
 
-    function render() {
-
-      if (radius1 < 5.7 && !minus) {
+    function render(start) {
+      start = true;
+      if(start) {
+        if (radius1 < 5.7 && !minus) {
         radius1 += 0.0205
         radius2 += 0.0205
       } else {
@@ -120,6 +123,7 @@ export function FigureOne(sceneRef) {
       phase += 5
 
       requestAnimationFrame(render);
+      }
     }
     render();
 }
