@@ -27,7 +27,25 @@ class VideoSlider extends Component {
       speed: 500,
       slidesToShow: 4,
       slidesToScroll: 1,
-      initialSlide: 0
+      initialSlide: this.state.videoStateId,
+      responsive: [
+        {
+          breakpoint: 600,
+          settings: {
+            slidesToShow: 2,
+            slidesToScroll: 1,
+            initialSlide: this.state.videoStateId
+          }
+        },
+        {
+          breakpoint: 480,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            initialSlide: this.state.videoStateId
+          }
+        }
+      ]
     };
     const sliderItems = videosArray.map(({id, src}) =>
       <div

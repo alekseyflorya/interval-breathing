@@ -1,23 +1,23 @@
 import React from 'react'
 import {Col, Container, Row} from "reactstrap"
 import {Link} from 'react-router-dom'
-import ColorsBox from '../components/ColorsBox'
+// import ColorsBox from '../components/ColorsBox'
 import VideoSlider from '../components/VideoSlider'
-import FiguresSlider from '../components/FiguresSlider'
+// import FiguresSlider from '../components/FiguresSlider'
 import AudioSlider from '../components/AudioSlider'
 import {Aside} from '../components/Aside'
-import Preview from '../components/Preview'
-import {connect} from 'react-redux'
-import {editParams} from "../actions/authActions"
+// import Preview from '../components/Preview'
+// import {connect} from 'react-redux'
+// import {editParams} from "../actions/authActions"
 
-function Background({isVideo, editParams}) {
+function Background() {
 
-  const [checkedVideo, setCheckedVideo] = React.useState(isVideo)
+  // const [checkedVideo, setCheckedVideo] = React.useState(isVideo)
 
-  const handleChange = () => {
-    setCheckedVideo(!checkedVideo)
-    editParams({isVideo: !checkedVideo})
-  }
+  // const handleChange = () => {
+  //   setCheckedVideo(!checkedVideo)
+  //   editParams({isVideo: !checkedVideo})
+  // }
 
   const audioSliders = [
       {name:'3D audio',type:'audio'},
@@ -27,7 +27,7 @@ function Background({isVideo, editParams}) {
     .map(({name, type}) => (
       <Col key={type} sm="3">
         <div>
-          <h3 className="text-center">{name}</h3>
+          <h3 className="text-center slider-title">{name}</h3>
         </div>
         <AudioSlider type={type} />
       </Col>
@@ -58,15 +58,15 @@ function Background({isVideo, editParams}) {
           {/*    <FiguresSlider />*/}
           {/*  </Col>*/}
           {/*</Row>*/}
-          <Row style={{marginBottom: '50px'}}>
-            <Col sm="11">
+          <Row style={{marginBottom: '10px'}}>
+            <Col sm="12">
               {/*<input*/}
               {/*  type="radio"*/}
               {/*  name="checkedVideo"*/}
               {/*  checked={checkedVideo}*/}
               {/*  onChange={handleChange}*/}
               {/*/>*/}
-              <h3>Video</h3>
+              <h3 className="slider-title">Video</h3>
               <VideoSlider />
             </Col>
           </Row>
@@ -97,8 +97,10 @@ function Background({isVideo, editParams}) {
   )
 }
 
-const mapStateToProps = state => ({
-  isVideo: state.auth.user.params.isVideo,
-})
+// const mapStateToProps = state => ({
+//   isVideo: state.auth.user.params.isVideo,
+// })
+//
+// export default connect(mapStateToProps, {editParams})(Background)
 
-export default connect(mapStateToProps, {editParams})(Background)
+export default Background

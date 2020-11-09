@@ -10,7 +10,6 @@ function RhythmSlider({rhythm, editParams, suggestedRhythm}) {
     slidesToShow: 3,
     slidesToScroll: 1,
     vertical: true,
-    verticalSwiping: true,
     beforeChange: function(currentSlide, nextSlide) {
       console.log("before change", currentSlide, nextSlide);},
     afterChange: function(currentSlide) {
@@ -25,7 +24,7 @@ function RhythmSlider({rhythm, editParams, suggestedRhythm}) {
 
   const tracks = rhythm.map(({name, id}) => (
     <div key={id}>
-      <h4 className={suggestedRhythm === id ? 'active' : null} id={id} onClick={rhythmHandler}>{name}</h4>
+      <h4 className={suggestedRhythm === id ? 'text-center selected' : 'text-center'} id={id} onClick={rhythmHandler}>{name}</h4>
     </div>
   ))
 

@@ -28,7 +28,6 @@ function AudioSlider({type, audio, editParams}) {
     slidesToShow: 3,
     slidesToScroll: 1,
     vertical: true,
-    verticalSwiping: true,
     beforeChange: function(currentSlide, nextSlide) {
       console.log("before change", currentSlide, nextSlide);},
     afterChange: function(currentSlide) {
@@ -43,7 +42,7 @@ function AudioSlider({type, audio, editParams}) {
   const tracks = audioTracks.filter(item => item.type === type).map(({type, name, id}) => (
     <div key={id}>
       <h4
-        className={`${audio.trackId === id ? 'active': null }`}
+        className={`${audio.trackId === id ? 'text-center selected': 'text-center' }`}
         style={{fontWeight: `${audio.trackId === id ? 'bold': 'normal' }`}}
         id={id}
         title={type}

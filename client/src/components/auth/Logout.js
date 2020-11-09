@@ -7,7 +7,16 @@ function Logout({userName, logout}) {
 
   return (
     <>
-      <span style={{fontSize: '1.5rem', color: '#fff', marginRight: '10px', verticalAlign: 'middle'}}>Hi, <strong>{userName}</strong></span>
+      <span
+        style={{
+          fontSize: '1.5rem',
+          color: '#fff',
+          marginRight: '40px',
+          verticalAlign: 'middle',
+          position: 'absolute',
+          right: '20px',
+        }}
+      >Hi, <strong>{userName}</strong></span>
       <button onClick={logout} className="sign-out-btn">
         <BoxArrowRight />
       </button>

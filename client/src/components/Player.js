@@ -5,6 +5,7 @@ import screenfull from 'screenfull'
 import {PlayFill, PauseFill, Fullscreen, VolumeOffFill, VolumeMuteFill } from 'react-bootstrap-icons'
 import FiguresPlayer from "./FiguresPlayer"
 import {connect} from "react-redux"
+import IntervalTimer from "./IntervalTimer"
 
 import video1 from '../assets/videos/V-ID-1.mp4'
 import video2 from '../assets/videos/V-ID-2.mp4'
@@ -28,6 +29,7 @@ import audio32 from '../assets/audio/music/Relaxation Meditation Songs Divine - 
 import audio33 from '../assets/audio/music/Академия глубокой релаксации - горный поток.mp3'
 import audio34 from '../assets/audio/music/Инструментальная Зона Отдыха - Физическое восстановление.mp3'
 import audio35 from '../assets/audio/music/Оазис глубокой сна - Быстрый сон с фортепиано.mp3'
+
 
 const videosArray = [{id: 0, src: video1}, {id: 1, src: video2}, {id: 2, src: video3}, {id: 3, src: video4}, {id: 4, src: video5}];
 const audioArray = [
@@ -62,6 +64,11 @@ class Player extends Component {
     duration: 0,
     playbackRate: 1.0,
     loop: true,
+    inhale: this.props.inhale,
+    delay: this.props.delay,
+    exhale: this.props.exhale,
+    pause: this.props.pause,
+
   }
 
   load = url => {
@@ -120,22 +127,81 @@ class Player extends Component {
   }
 
   handleClickFullscreen = () => {
-    screenfull.request(findDOMNode(this.player))
+    screenfull.request(findDOMNode(this.timer))
   }
 
   ref = player => {
     this.player = player
   }
+  timerRef = timer => {
+    this.timer = timer
+  }
   audioSrc = audioArray.filter(({id}) => id === this.props.audio.trackId)[0]
 
+
   render() {
-    const { url, playing, controls, light, volume, muted, loop, playbackRate, pip } = this.state
-    console.log('this.rap.audioEl = ',this.rap)
+    const { url, playing, controls, light, volume, muted, loop, playbackRate, pip, inhale, exhale, delay, pause} = this.state
+
+    const timerDuration = Number(inhale + exhale + delay + pause)
+
+    console.log('timerDuration ', timerDuration)
+
+    const inhaleItemStyle = {
+      border: '3px solid #00B0F0',
+      width: 50,
+      height: inhale*20 + 'px',
+    }
+
+    const delayItemStyle = {
+      border: '3px solid #ED7D31',
+      width: 50,
+      height: delay*20 + 'px',
+    }
+
+    const exhaleItemStyle = {
+      border: '3px solid #00B0F0',
+      width: 50,
+      height: exhale*20 + 'px',
+    }
+
+    const pauseItemStyle = {
+      border: '3px solid #00B050',
+      width: 50,
+      height: pause*20 + 'px',
+    }
+
+    const inhaleItemFill = {
+      backgroundColor: '#00B0F0',
+      width: '100%',
+      height: 0 + '%',
+      transition: 'all ' + inhale + 's'
+    }
+
+    const delayItemFill = {
+      backgroundColor: '#ED7D31',
+      width: '100%',
+      height: 0 + '%',
+      transition: 'all ' + delay + 's'
+    }
+
+    const exhaleItemFill = {
+      backgroundColor: '#00B0F0',
+      width: '100%',
+      height: 0 + '%',
+      transition: 'all ' + exhale + 's'
+    }
+
+    const pauseItemFill = {
+      backgroundColor: '#00B050',
+      width: '100%',
+      height: 0 + '%',
+      transition: 'all ' + pause + 's'
+    }
 
     return (
       <>
         {this.props.isVideo ? (
-          <div className="player-container">
+          <div className="player-container" ref={this.timerRef}>
             <ReactPlayer
               ref={this.ref}
               className='react-player'
@@ -163,6 +229,13 @@ class Player extends Component {
               onProgress={this.handleProgress}
               onDuration={this.handleDuration}
             />
+            {/*<IntervalTimer />*/}
+            <div className="interval-timer">
+              <div className="interval-timer-item" style={inhaleItemStyle}><div style={inhaleItemFill} /></div>
+              <div className="interval-timer-item" style={delayItemStyle}><div style={delayItemFill} /></div>
+              <div className="interval-timer-item" style={exhaleItemStyle}><div style={exhaleItemFill} /></div>
+              <div className="interval-timer-item" style={pauseItemStyle}><div style={pauseItemFill} /></div>
+            </div>
           </div>
         ) : (
           <FiguresPlayer />
@@ -203,6 +276,10 @@ const mapStateToProps = state => ({
   colour: state.auth.user.params.colour,
   figure: state.auth.user.params.figure,
   isVideo: state.auth.user.params.isVideo,
+  inhale: state.auth.user.params.inhale,
+  delay: state.auth.user.params.delay,
+  exhale: state.auth.user.params.exhale,
+  pause: state.auth.user.params.pause
 });
 
 export default connect(mapStateToProps)(Player)
