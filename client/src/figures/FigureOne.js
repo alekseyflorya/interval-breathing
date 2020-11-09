@@ -22,7 +22,7 @@ export function FigureOne(sceneRef) {
   frontSpot2.position.set(-500, -500, -500);
   scene.add(frontSpot2);
 
-  const pitchSegments = 25;
+  const pitchSegments = 50;
   const elevationSegments = pitchSegments / 2;
   const radius = 15
 

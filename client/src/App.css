@@ -159,34 +159,34 @@ label{
 }
 
 /* Background page */
-.colors-box{
-  display: inline;
-}
-.colors-box-container{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.colors-box-item{
-  box-sizing: border-box;
-  width: 2rem;
-  height: 2rem;
-  border-radius: 50%;
-  box-shadow: rgba(0, 0, 0, 0.6) -2px 1px 4px;
-}
-.colors-box-item.active{
-  border: 3px solid #ffffff;
-}
-.colors-box-item:hover{
-  cursor: pointer;
-}
+/*.colors-box{*/
+/*  display: inline;*/
+/*}*/
+/*.colors-box-container{*/
+/*  display: flex;*/
+/*  justify-content: space-between;*/
+/*  align-items: center;*/
+/*}*/
+/*.colors-box-item{*/
+/*  box-sizing: border-box;*/
+/*  width: 2rem;*/
+/*  height: 2rem;*/
+/*  border-radius: 50%;*/
+/*  box-shadow: rgba(0, 0, 0, 0.6) -2px 1px 4px;*/
+/*}*/
+/*.colors-box-item.active{*/
+/*  border: 3px solid #ffffff;*/
+/*}*/
+/*.colors-box-item:hover{*/
+/*  cursor: pointer;*/
+/*}*/
 .slick-slider .slick-slide {
   padding: .5rem;
 }
-.figures-slider .figures-slider-item{
-  border-radius: 20px;
-  overflow: hidden;
-}
+/*.figures-slider .figures-slider-item{*/
+/*  border-radius: 20px;*/
+/*  overflow: hidden;*/
+/*}*/
 .videos-slider-item video{
   display: block;
   max-width: 100%;
@@ -204,23 +204,23 @@ label{
 .videos-slider .videos-slider-item.active{
   border: 3px solid #ffffff;
 }
-.preview-box{
-  margin-bottom: 2rem;
-  width: 150%;
-  margin-left: -50%;
-}
-.preview-item{
-  height: 10rem;
-  border-radius: 20px;
-  /*overflow: hidden;*/
-}
-.preview-item .player-container{
-  border-radius: 20px;
-}
-.preview-item video{
-  max-width: 100%;
-  border-radius: 20px;
-}
+/*.preview-box{*/
+/*  margin-bottom: 2rem;*/
+/*  width: 150%;*/
+/*  margin-left: -50%;*/
+/*}*/
+/*.preview-item{*/
+/*  height: 10rem;*/
+/*  border-radius: 20px;*/
+/*  !*overflow: hidden;*!*/
+/*}*/
+/*.preview-item .player-container{*/
+/*  border-radius: 20px;*/
+/*}*/
+/*.preview-item video{*/
+/*  max-width: 100%;*/
+/*  border-radius: 20px;*/
+/*}*/
 .audio-slider-container{
   border-radius: 30px;
   padding: .7rem 1rem;

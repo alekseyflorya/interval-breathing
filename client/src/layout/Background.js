@@ -1,5 +1,5 @@
 import React from 'react'
-import {Col, Container, Row, Input} from "reactstrap"
+import {Col, Container, Row} from "reactstrap"
 import {Link} from 'react-router-dom'
 import ColorsBox from '../components/ColorsBox'
 import VideoSlider from '../components/VideoSlider'
@@ -19,29 +19,53 @@ function Background({isVideo, editParams}) {
     editParams({isVideo: !checkedVideo})
   }
 
+  const audioSliders = [
+      {name:'3D audio',type:'audio'},
+      {name:'Music',type:'music'},
+      {name:'Binaural',type:'binaural'}
+    ]
+    .map(({name, type}) => (
+      <Col key={type} sm="3">
+        <div>
+          <h3 className="text-center">{name}</h3>
+        </div>
+        <AudioSlider type={type} />
+      </Col>
+    ))
+
   return (
     <Container>
       <h2 className="headding-title text-center">Background</h2>
       <Row>
         <Col sm="10">
-          <Row>
-            <Col sm="2">
-              <input type="radio" name="checkedVideo" checked={!checkedVideo} onChange={handleChange} />
-              <h3>Colour</h3>
-            </Col>
-            <Col sm="9">
-              <ColorsBox />
-            </Col>
-          </Row>
-          <Row>
+          {/*<Row>*/}
+          {/*  <Col sm="2">*/}
+          {/*    <input*/}
+          {/*      type="radio"*/}
+          {/*      name="checkedVideo"*/}
+          {/*      checked={!checkedVideo}*/}
+          {/*      onChange={handleChange}*/}
+          {/*    />*/}
+          {/*    <h3>Colour</h3>*/}
+          {/*  </Col>*/}
+          {/*  <Col sm="9">*/}
+          {/*    <ColorsBox />*/}
+          {/*  </Col>*/}
+          {/*</Row>*/}
+          {/*<Row>*/}
+          {/*  <Col sm="11">*/}
+          {/*    <h3>Figure</h3>*/}
+          {/*    <FiguresSlider />*/}
+          {/*  </Col>*/}
+          {/*</Row>*/}
+          <Row style={{marginBottom: '50px'}}>
             <Col sm="11">
-              <h3>Figure</h3>
-              <FiguresSlider />
-            </Col>
-          </Row>
-          <Row>
-            <Col sm="11">
-              <input type="radio" name="checkedVideo" checked={checkedVideo} onChange={handleChange} />
+              {/*<input*/}
+              {/*  type="radio"*/}
+              {/*  name="checkedVideo"*/}
+              {/*  checked={checkedVideo}*/}
+              {/*  onChange={handleChange}*/}
+              {/*/>*/}
               <h3>Video</h3>
               <VideoSlider />
             </Col>
@@ -49,27 +73,7 @@ function Background({isVideo, editParams}) {
           <Row>
             <Col sm="12">
               <Row>
-                <Col sm="3">
-                  <div style={{display: 'flex'}}>
-                    <h3>3D audio</h3>
-                    <Input type="radio" name="radio2" style={{position: 'inherit', margin: 'auto auto 17px 10px'}} />
-                  </div>
-                  <AudioSlider type={'audio'} />
-                </Col>
-                <Col sm="3">
-                  <div style={{display: 'flex'}}>
-                    <h3>Music</h3>
-                    <Input type="radio" name="radio2" style={{position: 'inherit', margin: 'auto auto 17px 10px'}} />
-                  </div>
-                  <AudioSlider type={'music'} />
-                </Col>
-                <Col sm="3">
-                  <div style={{display: 'flex'}}>
-                    <h3>Binaural</h3>
-                    <Input type="radio" name="radio2" style={{position: 'inherit', margin: 'auto auto 17px 10px'}} />
-                  </div>
-                  <AudioSlider type={'binaural'} />
-                </Col>
+                {audioSliders}
                 <Col sm="3">
                   <div className="submit-buttons-box">
                     <div className="submit-buttons">
@@ -83,9 +87,9 @@ function Background({isVideo, editParams}) {
           </Row>
         </Col>
         <Col sm="2">
-          <div className="preview-box">
-            <Preview />
-          </div>
+          {/*<div className="preview-box">*/}
+          {/*  <Preview />*/}
+          {/*</div>*/}
           <Aside />
         </Col>
       </Row>
