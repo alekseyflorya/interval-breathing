@@ -3,9 +3,9 @@ import ReactPlayer from 'react-player'
 import { findDOMNode } from 'react-dom'
 import screenfull from 'screenfull'
 import {PlayFill, PauseFill, Fullscreen, VolumeOffFill, VolumeMuteFill } from 'react-bootstrap-icons'
-import FiguresPlayer from "./FiguresPlayer"
+// import FiguresPlayer from "./FiguresPlayer"
 import {connect} from "react-redux"
-import IntervalTimer from "./IntervalTimer"
+import { CountdownCircleTimer } from "react-countdown-circle-timer";
 
 import video1 from '../assets/videos/V-ID-1.mp4'
 import video2 from '../assets/videos/V-ID-2.mp4'
@@ -19,10 +19,11 @@ import audio13 from '../assets/audio/3d-audio/Nature Sounds - Nature Sounds for 
 import audio14 from '../assets/audio/3d-audio/Nature Sounds - Seaside.mp3'
 import audio15 from '../assets/audio/3d-audio/Rain Sounds Rain for Deep Sleep BodyHI - Звуки дождя для сна.mp3'
 
-import audio21 from '../assets/audio/cycle/ring1-1.mp3'
-import audio22 from '../assets/audio/cycle/ring1-2.mp3'
-import audio23 from '../assets/audio/cycle/ring2-1.mp3'
-import audio24 from '../assets/audio/cycle/ring2-2.mp3'
+import audio21 from '../assets/audio/cycle/Meditation Music Zone - Успокойся.mp3'
+import audio22 from '../assets/audio/cycle/Meditation Music Zone - Флейта музыка.mp3'
+import audio23 from '../assets/audio/cycle/Relaxation Meditation Songs Divine - Вдчуваю любов.mp3'
+import audio24 from '../assets/audio/cycle/Relaxation Meditation Songs Divine - Кольоров метелики.mp3'
+import audio25 from '../assets/audio/cycle/Relaxation Meditation Songs Divine - Над пррвою.mp3'
 
 import audio31 from '../assets/audio/music/15 Тихое фортепиано - Держите ваше внимание высоким.mp3'
 import audio32 from '../assets/audio/music/Relaxation Meditation Songs Divine - Свтло на вод.mp3'
@@ -30,6 +31,7 @@ import audio33 from '../assets/audio/music/Академия глубокой р�
 import audio34 from '../assets/audio/music/Инструментальная Зона Отдыха - Физическое восстановление.mp3'
 import audio35 from '../assets/audio/music/Оазис глубокой сна - Быстрый сон с фортепиано.mp3'
 
+import audioTick from '../assets/audio/cycle/ring1-1.mp3'
 
 const videosArray = [{id: 0, src: video1}, {id: 1, src: video2}, {id: 2, src: video3}, {id: 3, src: video4}, {id: 4, src: video5}];
 const audioArray = [
@@ -42,11 +44,12 @@ const audioArray = [
   {type: 'music', name: 'Music', id: 6, src: audio22},
   {type: 'music', name: 'Music', id: 7, src: audio23},
   {type: 'music', name: 'Music', id: 8, src: audio24},
-  {type: 'binaural', name: 'Binaural', id: 9, src: audio31},
-  {type: 'binaural', name: 'Binaural', id: 10, src: audio32},
-  {type: 'binaural', name: 'Binaural', id: 11, src: audio33},
-  {type: 'binaural', name: 'Binaural', id: 12, src: audio34},
-  {type: 'binaural', name: 'Binaural', id: 13, src: audio35}
+  {type: 'music', name: 'Music', id: 9, src: audio25},
+  {type: 'binaural', name: 'Binaural', id: 10, src: audio31},
+  {type: 'binaural', name: 'Binaural', id: 11, src: audio32},
+  {type: 'binaural', name: 'Binaural', id: 12, src: audio33},
+  {type: 'binaural', name: 'Binaural', id: 13, src: audio34},
+  {type: 'binaural', name: 'Binaural', id: 14, src: audio35}
 ]
 
 class Player extends Component {
@@ -64,11 +67,16 @@ class Player extends Component {
     duration: 0,
     playbackRate: 1.0,
     loop: true,
-    inhale: this.props.inhale,
-    delay: this.props.delay,
-    exhale: this.props.exhale,
-    pause: this.props.pause,
-
+    inhale: Number(this.props.inhale),
+    delay: Number(this.props.delay),
+    exhale: Number(this.props.exhale),
+    pause: Number(this.props.pause),
+    playedSeconds: 0,
+    inhaleDone: true,
+    delayDone: false,
+    exhaleDone: false,
+    pauseDone: false,
+    tick: false
   }
 
   load = url => {
@@ -90,7 +98,7 @@ class Player extends Component {
 
   handlePlay = () => {
     console.log('onPlay')
-    this.setState({ playing: true })
+    this.setState({ playing: true})
   }
 
   handleEnablePIP = () => {
@@ -105,11 +113,12 @@ class Player extends Component {
 
   handlePause = () => {
     console.log('onPause')
-    this.setState({ playing: false })
+    this.setState({playing: false})
   }
 
   handleProgress = state => {
-    console.log('onProgress', state)
+    // console.log('onProgress', state)
+
     // We only want to update time slider if we are not currently seeking
     if (!this.state.seeking) {
       this.setState(state)
@@ -136,67 +145,14 @@ class Player extends Component {
   timerRef = timer => {
     this.timer = timer
   }
+
   audioSrc = audioArray.filter(({id}) => id === this.props.audio.trackId)[0]
 
-
   render() {
-    const { url, playing, controls, light, volume, muted, loop, playbackRate, pip, inhale, exhale, delay, pause} = this.state
-
-    const timerDuration = Number(inhale + exhale + delay + pause)
-
-    console.log('timerDuration ', timerDuration)
-
-    const inhaleItemStyle = {
-      border: '3px solid #00B0F0',
-      width: 50,
-      height: inhale*20 + 'px',
-    }
-
-    const delayItemStyle = {
-      border: '3px solid #ED7D31',
-      width: 50,
-      height: delay*20 + 'px',
-    }
-
-    const exhaleItemStyle = {
-      border: '3px solid #00B0F0',
-      width: 50,
-      height: exhale*20 + 'px',
-    }
-
-    const pauseItemStyle = {
-      border: '3px solid #00B050',
-      width: 50,
-      height: pause*20 + 'px',
-    }
-
-    const inhaleItemFill = {
-      backgroundColor: '#00B0F0',
-      width: '100%',
-      height: 0 + '%',
-      transition: 'all ' + inhale + 's'
-    }
-
-    const delayItemFill = {
-      backgroundColor: '#ED7D31',
-      width: '100%',
-      height: 0 + '%',
-      transition: 'all ' + delay + 's'
-    }
-
-    const exhaleItemFill = {
-      backgroundColor: '#00B0F0',
-      width: '100%',
-      height: 0 + '%',
-      transition: 'all ' + exhale + 's'
-    }
-
-    const pauseItemFill = {
-      backgroundColor: '#00B050',
-      width: '100%',
-      height: 0 + '%',
-      transition: 'all ' + pause + 's'
-    }
+    const {
+      url, playing, controls, light, volume, muted, loop, playbackRate, pip,
+      inhale, exhale, delay, pause, tick,
+      inhaleDone, delayDone, exhaleDone, pauseDone} = this.state
 
     return (
       <>
@@ -229,16 +185,75 @@ class Player extends Component {
               onProgress={this.handleProgress}
               onDuration={this.handleDuration}
             />
-            {/*<IntervalTimer />*/}
             <div className="interval-timer">
-              <div className="interval-timer-item" style={inhaleItemStyle}><div style={inhaleItemFill} /></div>
-              <div className="interval-timer-item" style={delayItemStyle}><div style={delayItemFill} /></div>
-              <div className="interval-timer-item" style={exhaleItemStyle}><div style={exhaleItemFill} /></div>
-              <div className="interval-timer-item" style={pauseItemStyle}><div style={pauseItemFill} /></div>
+              {inhaleDone && (<CountdownCircleTimer
+                size={80}
+                isPlaying={playing}
+                duration={inhale}
+                colors={"#00B0F0"}
+                onComplete={() => playing && this.setState({inhaleDone: false, delayDone: true})}
+              >
+                <ReactPlayer
+                  url={audioTick}
+                  volume={Number(volume) > 0.5 ? Number(volume) - 0.5 : Number(volume)}
+                  loop={false}
+                  playing={playing && inhaleDone}
+                  width="0"
+                  height="0"
+                />
+              </CountdownCircleTimer>)}
+              {delayDone && (<CountdownCircleTimer
+                size={80}
+                isPlaying={playing}
+                duration={delay}
+                colors={"#ED7D31"}
+                onComplete={() => playing && this.setState({delayDone: false, exhaleDone: true})}
+              >
+                <ReactPlayer
+                  url={audioTick}
+                  volume={Number(volume) > 0.5 ? Number(volume) - 0.5 : Number(volume)}
+                  loop={false}
+                  playing={delayDone}
+                  width="0"
+                  height="0"
+                />
+              </CountdownCircleTimer>)}
+              {exhaleDone && (<CountdownCircleTimer
+                size={80}
+                isPlaying={playing}
+                duration={exhale}
+                colors={"#A76FF0"}
+                onComplete={() => playing && this.setState({exhaleDone: false, pauseDone: true})}
+              >
+                <ReactPlayer
+                  url={audioTick}
+                  volume={Number(volume) > 0.5 ? Number(volume) - 0.5 : Number(volume)}
+                  loop={false}
+                  playing={exhaleDone}
+                  width="0"
+                  height="0"
+                />
+              </CountdownCircleTimer>)}
+              {pauseDone && (<CountdownCircleTimer
+                size={80}
+                isPlaying={playing}
+                duration={pause}
+                colors={"#00B050"}
+                onComplete={() => playing && this.setState({pauseDone: false, inhaleDone: true})}
+              >
+                <ReactPlayer
+                  url={audioTick}
+                  volume={Number(volume) > 0.5 ? Number(volume) - 0.5 : Number(volume)}
+                  loop={false}
+                  playing={pauseDone}
+                  width="0"
+                  height="0"
+                />
+              </CountdownCircleTimer>)}
             </div>
           </div>
         ) : (
-          <FiguresPlayer />
+          <></>
         )}
         <ReactPlayer
           url={this.audioSrc.src}
@@ -248,6 +263,14 @@ class Player extends Component {
           playing={playing}
           onPlay={this.handlePlay}
           onPause={this.handlePause}
+          width="0"
+          height="0"
+        />
+        <ReactPlayer
+          url={audioTick}
+          volume={volume}
+          loop={false}
+          playing={tick && tick}
           width="0"
           height="0"
         />
@@ -273,8 +296,6 @@ class Player extends Component {
 const mapStateToProps = state => ({
   video: state.auth.user.params.video,
   audio: state.auth.user.params.audio,
-  colour: state.auth.user.params.colour,
-  figure: state.auth.user.params.figure,
   isVideo: state.auth.user.params.isVideo,
   inhale: state.auth.user.params.inhale,
   delay: state.auth.user.params.delay,

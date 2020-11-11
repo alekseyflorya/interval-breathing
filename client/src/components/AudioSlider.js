@@ -13,11 +13,12 @@ const audioTracks = [
   {type: 'music', name: 'Music', id: 6},
   {type: 'music', name: 'Music', id: 7},
   {type: 'music', name: 'Music', id: 8},
-  {type: 'binaural', name: 'Binaural', id: 9},
+  {type: 'music', name: 'Music', id: 9},
   {type: 'binaural', name: 'Binaural', id: 10},
   {type: 'binaural', name: 'Binaural', id: 11},
   {type: 'binaural', name: 'Binaural', id: 12},
-  {type: 'binaural', name: 'Binaural', id: 13}
+  {type: 'binaural', name: 'Binaural', id: 13},
+  {type: 'binaural', name: 'Binaural', id: 14}
 ]
 
 

@@ -14,7 +14,7 @@ export default function AppNavbar() {
         </Row>
         <Row>
           <Col sm="12" className="header-left">
-            <Link to="/" className="header-title" >Interval breathing</Link>
+            <Link to="/" className="header-title">Interval breathing</Link>
           </Col>
         </Row>
       </Container>

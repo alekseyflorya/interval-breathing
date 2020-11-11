@@ -12,7 +12,7 @@ import {
   EDIT_FAIL
 } from '../actions/types';
 
-const initialState = {
+const initialState = localStorage.setParams ? JSON.parse(localStorage.setParams) : {
   token: localStorage.getItem('token'),
   isAuthenticated: null,
   isLoading: false,
@@ -28,7 +28,7 @@ const initialState = {
       colour: '#010a1c',
       figure: 0,
       isVideo: true,
-      video: 2,
+      video: 3,
       audio: {
         trackType: 'audio',
         trackId: 1
@@ -43,11 +43,13 @@ const initialState = {
 export default function(state = initialState, action) {
   switch (action.type) {
     case USER_LOADING:
+      localStorage.setItem('setParams', JSON.stringify(state))
       return {
         ...state,
         isLoading: true
       };
     case USER_LOADED:
+      localStorage.setItem('setParams', JSON.stringify(state))
       return {
         ...state,
         isAuthenticated: true,
@@ -57,6 +59,7 @@ export default function(state = initialState, action) {
     case LOGIN_SUCCESS:
     case REGISTER_SUCCESS:
       localStorage.setItem('token', action.payload.token);
+      localStorage.setItem('setParams', JSON.stringify(state))
       return {
         ...state,
         ...action.payload,
@@ -68,23 +71,27 @@ export default function(state = initialState, action) {
     case LOGOUT_SUCCESS:
     case REGISTER_FAIL:
       localStorage.removeItem('token');
+      localStorage.setItem('setParams', JSON.stringify(state))
       return {
-        ...initialState,
+        ...state,
         token: null,
         isAuthenticated: false,
         isLoading: false,
       };
     case EDIT_PARAMS:
     case EDIT_SUCCESS:
+      localStorage.setItem('setParams', JSON.stringify(state))
       return {
         ...state,
         ...action.payload
       }
     case EDIT_FAIL:
+      localStorage.setItem('setParams', JSON.stringify(state))
       return {
         ...state
       }
     default:
+      localStorage.setItem('setParams', JSON.stringify(state))
       return state;
   }
 }
