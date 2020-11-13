@@ -35,21 +35,21 @@ import audioTick from '../assets/audio/cycle/ring1-1.mp3'
 
 const videosArray = [{id: 0, src: video1}, {id: 1, src: video2}, {id: 2, src: video3}, {id: 3, src: video4}, {id: 4, src: video5}];
 const audioArray = [
-  {type: 'audio', name: 'Audio', id: 0, src: audio11},
-  {type: 'audio', name: 'Audio', id: 1, src: audio12},
-  {type: 'audio', name: 'Audio', id: 2, src: audio13},
-  {type: 'audio', name: 'Audio', id: 3, src: audio14},
-  {type: 'audio', name: 'Audio', id: 4, src: audio15},
-  {type: 'music', name: 'Music', id: 5, src: audio21},
-  {type: 'music', name: 'Music', id: 6, src: audio22},
-  {type: 'music', name: 'Music', id: 7, src: audio23},
-  {type: 'music', name: 'Music', id: 8, src: audio24},
-  {type: 'music', name: 'Music', id: 9, src: audio25},
-  {type: 'binaural', name: 'Binaural', id: 10, src: audio31},
-  {type: 'binaural', name: 'Binaural', id: 11, src: audio32},
-  {type: 'binaural', name: 'Binaural', id: 12, src: audio33},
-  {type: 'binaural', name: 'Binaural', id: 13, src: audio34},
-  {type: 'binaural', name: 'Binaural', id: 14, src: audio35}
+  {type: 'audio', name: 'Audio 1', id: 0, src: audio11},
+  {type: 'audio', name: 'Audio 2', id: 1, src: audio12},
+  {type: 'audio', name: 'Audio 3', id: 2, src: audio13},
+  {type: 'audio', name: 'Audio 4', id: 3, src: audio14},
+  {type: 'audio', name: 'Audio 5', id: 4, src: audio15},
+  {type: 'music', name: 'Music 1', id: 5, src: audio21},
+  {type: 'music', name: 'Music 2', id: 6, src: audio22},
+  {type: 'music', name: 'Music 3', id: 7, src: audio23},
+  {type: 'music', name: 'Music 4', id: 8, src: audio24},
+  {type: 'music', name: 'Music 5', id: 9, src: audio25},
+  {type: 'binaural', name: 'Binaural 1', id: 10, src: audio31},
+  {type: 'binaural', name: 'Binaural 2', id: 11, src: audio32},
+  {type: 'binaural', name: 'Binaural 3', id: 12, src: audio33},
+  {type: 'binaural', name: 'Binaural 4', id: 13, src: audio34},
+  {type: 'binaural', name: 'Binaural 5', id: 14, src: audio35}
 ]
 
 class Player extends Component {
@@ -76,8 +76,10 @@ class Player extends Component {
     delayDone: false,
     exhaleDone: false,
     pauseDone: false,
-    tick: false
+    fullscreen: false
   }
+
+
 
   load = url => {
     this.setState({
@@ -139,11 +141,20 @@ class Player extends Component {
     screenfull.request(findDOMNode(this.timer))
   }
 
+  handleTogglePlay = () => {
+    this.setState({playing: !this.state.playing})
+  }
+
   ref = player => {
     this.player = player
   }
   timerRef = timer => {
     this.timer = timer
+  }
+  componentDidMount() {
+    screenfull.on('change', () => {
+      this.setState({fullscreen: screenfull.isFullscreen})
+    });
   }
 
   audioSrc = audioArray.filter(({id}) => id === this.props.audio.trackId)[0]
@@ -151,13 +162,17 @@ class Player extends Component {
   render() {
     const {
       url, playing, controls, light, volume, muted, loop, playbackRate, pip,
-      inhale, exhale, delay, pause, tick,
+      inhale, exhale, delay, pause, fullscreen,
       inhaleDone, delayDone, exhaleDone, pauseDone} = this.state
 
     return (
       <>
         {this.props.isVideo ? (
-          <div className="player-container" ref={this.timerRef}>
+          <div
+            className="player-container"
+            ref={this.timerRef}
+            style={{borderRadius: fullscreen ? '0' : '50px'}}
+          >
             <ReactPlayer
               ref={this.ref}
               className='react-player'
@@ -184,6 +199,7 @@ class Player extends Component {
               onError={e => console.log('onError', e)}
               onProgress={this.handleProgress}
               onDuration={this.handleDuration}
+              onClick={this.handleTogglePlay}
             />
             <div className="interval-timer">
               {inhaleDone && (<CountdownCircleTimer
@@ -195,7 +211,7 @@ class Player extends Component {
               >
                 <ReactPlayer
                   url={audioTick}
-                  volume={Number(volume) > 0.5 ? Number(volume) - 0.5 : Number(volume)}
+                  volume={volume}
                   loop={false}
                   playing={playing && inhaleDone}
                   width="0"
@@ -211,7 +227,7 @@ class Player extends Component {
               >
                 <ReactPlayer
                   url={audioTick}
-                  volume={Number(volume) > 0.5 ? Number(volume) - 0.5 : Number(volume)}
+                  volume={volume}
                   loop={false}
                   playing={delayDone}
                   width="0"
@@ -227,7 +243,7 @@ class Player extends Component {
               >
                 <ReactPlayer
                   url={audioTick}
-                  volume={Number(volume) > 0.5 ? Number(volume) - 0.5 : Number(volume)}
+                  volume={volume}
                   loop={false}
                   playing={exhaleDone}
                   width="0"
@@ -243,7 +259,7 @@ class Player extends Component {
               >
                 <ReactPlayer
                   url={audioTick}
-                  volume={Number(volume) > 0.5 ? Number(volume) - 0.5 : Number(volume)}
+                  volume={volume}
                   loop={false}
                   playing={pauseDone}
                   width="0"
@@ -263,14 +279,6 @@ class Player extends Component {
           playing={playing}
           onPlay={this.handlePlay}
           onPause={this.handlePause}
-          width="0"
-          height="0"
-        />
-        <ReactPlayer
-          url={audioTick}
-          volume={volume}
-          loop={false}
-          playing={tick && tick}
           width="0"
           height="0"
         />

@@ -1,28 +1,27 @@
 import React from "react"
 import Slider from "react-slick"
 import {connect} from 'react-redux'
-import {editParams} from "../actions/authActions"
 
 const audioTracks = [
-  {type: 'audio', name: 'Audio', id: 0},
-  {type: 'audio', name: 'Audio', id: 1},
-  {type: 'audio', name: 'Audio', id: 2},
-  {type: 'audio', name: 'Audio', id: 3},
-  {type: 'audio', name: 'Audio', id: 4},
-  {type: 'music', name: 'Music', id: 5},
-  {type: 'music', name: 'Music', id: 6},
-  {type: 'music', name: 'Music', id: 7},
-  {type: 'music', name: 'Music', id: 8},
-  {type: 'music', name: 'Music', id: 9},
-  {type: 'binaural', name: 'Binaural', id: 10},
-  {type: 'binaural', name: 'Binaural', id: 11},
-  {type: 'binaural', name: 'Binaural', id: 12},
-  {type: 'binaural', name: 'Binaural', id: 13},
-  {type: 'binaural', name: 'Binaural', id: 14}
+  {type: 'audio', name: 'Audio 1', id: 0},
+  {type: 'audio', name: 'Audio 2', id: 1},
+  {type: 'audio', name: 'Audio 3', id: 2},
+  {type: 'audio', name: 'Audio 4', id: 3},
+  {type: 'audio', name: 'Audio 5', id: 4},
+  {type: 'music', name: 'Music 1', id: 5},
+  {type: 'music', name: 'Music 2', id: 6},
+  {type: 'music', name: 'Music 3', id: 7},
+  {type: 'music', name: 'Music 4', id: 8},
+  {type: 'music', name: 'Music 5', id: 9},
+  {type: 'binaural', name: 'Binaural 1', id: 10},
+  {type: 'binaural', name: 'Binaural 2', id: 11},
+  {type: 'binaural', name: 'Binaural 3', id: 12},
+  {type: 'binaural', name: 'Binaural 4', id: 13},
+  {type: 'binaural', name: 'Binaural 5', id: 14}
 ]
 
 
-function AudioSlider({type, audio, editParams}) {
+function AudioSlider({type, handleChangeAudio, selectedTrack}) {
 
   const settings = {
     infinite: true,
@@ -36,20 +35,17 @@ function AudioSlider({type, audio, editParams}) {
     }
   };
 
-  const handleClick = (e) => {
-    editParams({audio: {trackType: e.target.title, trackId: Number(e.target.id)}})
+  const changeAudioState = (trackId, trackType) => {
+    handleChangeAudio({audio: {trackType: trackType, trackId: trackId}})
   }
 
   const tracks = audioTracks.filter(item => item.type === type).map(({type, name, id}) => (
     <div key={id}>
       <h4
-        className={`${audio.trackId === id ? 'text-center selected': 'text-center' }`}
-        style={{fontWeight: `${audio.trackId === id ? 'bold': 'normal' }`}}
-        id={id}
-        title={type}
-        onClick={handleClick}
+        className={`text-center ${selectedTrack.trackId === id ? 'selected': null }`}
+        onClick={changeAudioState.bind(this, id, type)}
       >
-        {name} {id+1}
+        {name}
       </h4>
     </div>
   ))
@@ -65,8 +61,4 @@ function AudioSlider({type, audio, editParams}) {
   );
 }
 
-const mapStateToProps = state => ({
-  audio: state.auth.user.params.audio,
-});
-
-export default connect(mapStateToProps, {editParams})(AudioSlider)
+export default AudioSlider

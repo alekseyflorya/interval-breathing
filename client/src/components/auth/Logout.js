@@ -12,6 +12,7 @@ function Logout({userName, logout}) {
           fontSize: '1.5rem',
           color: '#fff',
           marginRight: '40px',
+          marginTop: '5px',
           verticalAlign: 'middle',
           position: 'absolute',
           right: '20px',

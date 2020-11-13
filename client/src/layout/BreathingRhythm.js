@@ -4,7 +4,6 @@ import {Col, Container, Row} from "reactstrap"
 import RhythmSlider from "../components/RhythmSlider"
 import {Link} from "react-router-dom"
 import {editParams} from "../actions/authActions"
-import { useHistory } from "react-router-dom"
 
 const rhythms = [
   {inhale: 1, delay: 0, exhale: 3, pause: 0, name: 'Clean breath', id: 0},
@@ -14,77 +13,44 @@ const rhythms = [
   {inhale: 3, delay: 0, exhale: 2, pause: 0, name: 'Antistress', id: 4},
 ]
 
-const inputStyle = {
-  maxWidth: '50px',
-  fontWeight: 'bold',
-  textAlign: 'center',
-  padding: '0px 10px',
-  border: 'none',
-  backgroundColor: 'rgba( 255, 255, 255, 0.3 )',
-  boxShadow: 'rgba(0, 0, 0, 0.6) -2px 1px 4px, rgba(255, 255, 255, 0.6) 2px -1px 1px',
-  borderRadius: '4px'
-}
-
 function BreathingRhythm ({inhale, delay, exhale, pause, useSuggestedRhythms, suggestedRhythm, editParams}) {
-  let history = useHistory();
 
   const [isSuggestedRhythms, setIsSuggestedRhythms] = React.useState(useSuggestedRhythms)
+  const [selectedSuggestedRhythm, setSelectedSuggestedRhythm] = React.useState(suggestedRhythm)
 
-  const rhythmsState = useSuggestedRhythms ? {
-    inhale: rhythms[suggestedRhythm].inhale,
-    delay: rhythms[suggestedRhythm].delay,
-    exhale: rhythms[suggestedRhythm].exhale,
-    pause: rhythms[suggestedRhythm].pause
-  } : {
+
+  const [userRhythm, setUserRhythm] = React.useState({
     inhale: inhale,
     delay: delay,
     exhale: exhale,
     pause: pause
-  }
+  })
 
-  const [userRhythm, setUserRhythm] = React.useState(rhythmsState)
-
-  React.useEffect(() => {
-    if (useSuggestedRhythms) {
-      setUserRhythm({
-        inhale: rhythms[suggestedRhythm].inhale,
-        delay: rhythms[suggestedRhythm].delay,
-        exhale: rhythms[suggestedRhythm].exhale,
-        pause: rhythms[suggestedRhythm].pause
-      })
-    }
-  },[suggestedRhythm, useSuggestedRhythms])
-
-  const handleChange = (e) => {
+  const changeOwnRhythm = (e) => {
     setUserRhythm({...userRhythm, [e.target.name]: e.target.value})
   }
 
   const changeSuggestedRhythms = () => {
     setIsSuggestedRhythms(!isSuggestedRhythms)
-    editParams({...userRhythm, useSuggestedRhythms: !useSuggestedRhythms})
-    if (useSuggestedRhythms || isSuggestedRhythms ) {
-      setUserRhythm({
-        inhale: rhythms[suggestedRhythm].inhale,
-        delay: rhythms[suggestedRhythm].delay,
-        exhale: rhythms[suggestedRhythm].exhale,
-        pause: rhythms[suggestedRhythm].pause
-      })
-    } else {
-      setUserRhythm({
-        inhale: inhale,
-        delay: delay,
-        exhale: exhale,
-        pause: pause
-      })
-    }
   }
+
+  const changeSuggestedRhythm = (selectedRhythm) => {
+    console.log('changeSuggestedRhythm ', selectedRhythm)
+    setSelectedSuggestedRhythm(selectedRhythm)
+    setUserRhythm({
+      ...userRhythm,
+      inhale: rhythms[selectedRhythm].inhale,
+      delay: rhythms[selectedRhythm].delay,
+      exhale: rhythms[selectedRhythm].exhale,
+      pause: rhythms[selectedRhythm].pause
+    })
+  }
+
+  const calculateInhalePerMin = Math.floor( 60 / (Number(userRhythm.inhale) + Number(userRhythm.delay) + Number(userRhythm.exhale) + Number(userRhythm.pause)))
 
   const onSubmit = () => {
-    editParams({...userRhythm})
-    alert(`Params was changed!`)
-    history.push("/");
+    editParams({...userRhythm, suggestedRhythm: selectedSuggestedRhythm, useSuggestedRhythms: isSuggestedRhythms})
   }
-
   return (
     <Container>
       <Row>
@@ -93,16 +59,16 @@ function BreathingRhythm ({inhale, delay, exhale, pause, useSuggestedRhythms, su
         </Col>
       </Row>
       <Row style={{marginBottom: '10px'}}>
-        <Col xs={12} sm={6}>
+        <Col xs={12} sm={{size: 4, offset:1 }} md={{size: 6, offset: 0}}>
           <div>
             <input type="radio" name="rhythm" id="rhythm1" checked={isSuggestedRhythms} onChange={changeSuggestedRhythms} />
             <label htmlFor="rhythm1" className="rhythm-label">Use the suggested rhythms</label>
           </div>
-          <div>
-            <RhythmSlider rhythm={rhythms} />
+          <div className={`suggested-rhythms ${!isSuggestedRhythms && 'disabled'}`}>
+            <RhythmSlider rhythms={rhythms} selectedSuggestedRhythm={selectedSuggestedRhythm} changeSuggestedRhythm={changeSuggestedRhythm} />
           </div>
         </Col>
-        <Col xs={12} sm={6}>
+        <Col xs={12} sm={{size: 6, offset: 1}} md={{size: 6, offset: 0}}>
           <div>
             <input type="radio" name="rhythm" id="rhythm2" checked={!isSuggestedRhythms} onChange={changeSuggestedRhythms} />
             <label htmlFor="rhythm2" className="rhythm-label">Set your own rhythm</label>
@@ -110,79 +76,82 @@ function BreathingRhythm ({inhale, delay, exhale, pause, useSuggestedRhythms, su
           <div>
             <Row>
               <Col sm={6} xs={6} style={{marginBottom: '30px', fontSize: '1.5rem'}}>
-                <span style={{display: 'inline-block', minWidth: '4.5rem'}}>Inhale </span>
-                <input style={inputStyle} type="text" name="inhale" value={userRhythm.inhale} onChange={handleChange} />
-                <span style={{marginLeft: '10px'}}> sec</span>
+                <span className="rhythm-title" >Inhale </span>
+                <input
+                  disabled={isSuggestedRhythms}
+                  className="rhythm-input disabled"
+                  type="number" min="0" max="60" name="inhale"
+                  value={!isSuggestedRhythms && userRhythm.inhale}
+                  onChange={changeOwnRhythm}
+                />
+                <span className="rhythm-subtitle" style={{marginLeft: '5px'}}> sec</span>
               </Col>
               <Col sm={6} xs={6} style={{marginBottom: '30px', fontSize: '1.5rem'}}>
-                <span style={{display: 'inline-block', minWidth: '4.5rem'}}>Delay </span>
-                <input style={inputStyle} type="text" name="delay" value={userRhythm.delay} onChange={handleChange} />
-                <span style={{marginLeft: '10px'}}> sec</span>
+                <span className="rhythm-title" >Delay </span>
+                <input
+                  disabled={isSuggestedRhythms}
+                  className="rhythm-input disabled"
+                  type="number" min="0" max="60" name="delay"
+                  value={!isSuggestedRhythms && userRhythm.delay}
+                  onChange={changeOwnRhythm}
+                />
+                <span className="rhythm-subtitle" style={{marginLeft: '5px'}}> sec</span>
               </Col>
               <Col sm={6} xs={6} style={{marginBottom: '30px', fontSize: '1.5rem'}}>
-                <span style={{display: 'inline-block', minWidth: '4.5rem'}}>Exhale </span>
-                <input style={inputStyle} type="text" name="exhale" value={userRhythm.exhale} onChange={handleChange} />
-                <span style={{marginLeft: '10px'}}> sec</span>
+                <span className="rhythm-title" >Exhale </span>
+                <input
+                  disabled={isSuggestedRhythms}
+                  className="rhythm-input disabled"
+                  type="number" min="0" max="60" name="exhale"
+                  value={!isSuggestedRhythms && userRhythm.exhale}
+                  onChange={changeOwnRhythm}
+                />
+                <span className="rhythm-subtitle" style={{marginLeft: '5px'}}> sec</span>
               </Col>
               <Col sm={6} xs={6} style={{marginBottom: '30px', fontSize: '1.5rem'}}>
-                <span style={{display: 'inline-block', minWidth: '4.5rem'}}>Pause </span>
-                <input style={inputStyle} type="text" name="pause" value={userRhythm.pause} onChange={handleChange} />
-                <span style={{marginLeft: '10px'}}> sec</span>
+                <span className="rhythm-title" >Pause </span>
+                <input
+                  disabled={isSuggestedRhythms}
+                  className="rhythm-input disabled"
+                  type="number" min="0" max="60" name="pause"
+                  name="pause"
+                  value={!isSuggestedRhythms && userRhythm.pause}
+                  onChange={changeOwnRhythm}
+                />
+                <span className="rhythm-subtitle" style={{marginLeft: '5px'}}> sec</span>
               </Col>
 
               <Col xs={12} sm={12}>
                 <div className="info-block d-flex mb-5">
-                  <div className="info-block-description col-sm-8">
+                  <div className="info-block-description col-sm-7">
                     <p>The descriptive part: what is achieved by a given breathing rhythm. The controlled breathing technique helps to slow down breathing</p>
                   </div>
-                  <div className="info-block-options col-sm-4">
+                  <div className="info-block-options col-sm-5">
                     <p>
-                      <span>Inhale:</span> <strong>{useSuggestedRhythms ? rhythms[suggestedRhythm].inhale : userRhythm.inhale} sec</strong>
+                      <span>Inhale:</span> <strong>{userRhythm.inhale} sec</strong>
                     </p>
                     <p>
-                      <span>Delay:</span> <strong>{useSuggestedRhythms ? rhythms[suggestedRhythm].delay : userRhythm.delay} sec</strong>
+                      <span>Delay:</span> <strong>{userRhythm.delay} sec</strong>
                     </p>
                     <p>
-                      <span>Exhale:</span> <strong>{useSuggestedRhythms ? rhythms[suggestedRhythm].exhale : userRhythm.exhale} sec</strong>
+                      <span>Exhale:</span> <strong>{userRhythm.exhale} sec</strong>
                     </p>
                     <p>
-                      <span>Pause:</span> <strong>{useSuggestedRhythms ? rhythms[suggestedRhythm].pause : userRhythm.pause} sec</strong>
+                      <span>Pause:</span> <strong>{userRhythm.pause} sec</strong>
+                    </p>
+                    <p>
+                      <span>Inhalation per minute:</span> <strong>{calculateInhalePerMin} cycles</strong>
                     </p>
                   </div>
                 </div>
               </Col>
-
             </Row>
           </div>
         </Col>
-
       </Row>
-      {/*<Row>*/}
-      {/*  <Col sm={{ size: 8, offset: 2 }}>*/}
-      {/*    <div className="info-block d-flex mb-5">*/}
-      {/*      <div className="info-block-description col-sm-8">*/}
-      {/*        <p>The descriptive part: what is achieved by a given breathing rhythm. The controlled breathing technique helps to slow down breathing</p>*/}
-      {/*      </div>*/}
-      {/*      <div className="info-block-options col-sm-4">*/}
-      {/*        <p>*/}
-      {/*          <span>Inhale:</span> <strong>{useSuggestedRhythms ? rhythms[suggestedRhythm].inhale : userRhythm.inhale} sec</strong>*/}
-      {/*        </p>*/}
-      {/*        <p>*/}
-      {/*          <span>Delay:</span> <strong>{useSuggestedRhythms ? rhythms[suggestedRhythm].delay : userRhythm.delay} sec</strong>*/}
-      {/*        </p>*/}
-      {/*        <p>*/}
-      {/*          <span>Exhale:</span> <strong>{useSuggestedRhythms ? rhythms[suggestedRhythm].exhale : userRhythm.exhale} sec</strong>*/}
-      {/*        </p>*/}
-      {/*        <p>*/}
-      {/*          <span>Pause:</span> <strong>{useSuggestedRhythms ? rhythms[suggestedRhythm].pause : userRhythm.pause} sec</strong>*/}
-      {/*        </p>*/}
-      {/*      </div>*/}
-      {/*    </div>*/}
-      {/*  </Col>*/}
-      {/*</Row>*/}
       <Row>
         <Col sm={{ size: 8, offset: 2 }} className="rhythm-buttons d-flex justify-content-between flex-row">
-          <button className="btn btn-lg btn-primary" onClick={onSubmit}>Apply</button>
+          <Link to="/" className="btn btn-lg btn-primary" onClick={onSubmit}>Apply</Link>
           <Link to="/" className="btn btn-lg btn-secondary">Cancel</Link>
         </Col>
       </Row>

@@ -1,9 +1,7 @@
 import React from "react"
 import Slider from "react-slick"
-import {connect} from 'react-redux'
-import {editParams} from "../actions/authActions"
 
-function RhythmSlider({rhythm, editParams, suggestedRhythm}) {
+function RhythmSlider({rhythms, selectedSuggestedRhythm, changeSuggestedRhythm}) {
 
   const settings = {
     infinite: true,
@@ -18,19 +16,18 @@ function RhythmSlider({rhythm, editParams, suggestedRhythm}) {
   };
 
   const rhythmHandler = (e) => {
-    console.log(e.target.id)
-    editParams({suggestedRhythm: Number(e.target.id)})
+    changeSuggestedRhythm(Number(e.target.id))
   }
 
-  const tracks = rhythm.map(({name, id}) => (
+  const tracks = rhythms.map(({name, id}) => (
     <div key={id}>
-      <h4 className={suggestedRhythm === id ? 'text-center selected' : 'text-center'} id={id} onClick={rhythmHandler}>{name}</h4>
+      <h4 className={selectedSuggestedRhythm === id ? 'text-center selected' : 'text-center'} id={id} onClick={rhythmHandler}>{name}</h4>
     </div>
   ))
 
   return (
     <>
-      <div className="audio-slider-container col-sm-6">
+      <div className="audio-slider-container col-sm-8 col-md-12">
         <Slider {...settings}>
           {tracks}
         </Slider>
@@ -39,8 +36,4 @@ function RhythmSlider({rhythm, editParams, suggestedRhythm}) {
   );
 }
 
-const mapStateToProps = state => ({
-  suggestedRhythm: state.auth.user.params.suggestedRhythm,
-});
-
-export default connect(mapStateToProps, {editParams})(RhythmSlider)
+export default RhythmSlider
