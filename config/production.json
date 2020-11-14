@@ -1,5 +1,5 @@
 {
-  "port": 5000,
+  "port": 80,
   "jwtSecret": "sl_myJwtSecret",
   "mongoURI": "mongodb://localhost:27017",
   "baseUrl": "http://breath-int.aestar.com.ua"

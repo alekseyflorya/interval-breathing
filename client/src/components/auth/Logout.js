@@ -8,6 +8,7 @@ function Logout({userName, logout}) {
   return (
     <>
       <span
+        className="logout-title"
         style={{
           fontSize: '1.5rem',
           color: '#fff',
