@@ -1,6 +1,5 @@
 import React from "react"
 import Slider from "react-slick"
-import {connect} from 'react-redux'
 
 const audioTracks = [
   {type: 'audio', name: 'Audio 1', id: 0},

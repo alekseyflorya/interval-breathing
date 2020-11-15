@@ -167,110 +167,110 @@ class Player extends Component {
 
     return (
       <>
-        {this.props.isVideo ? (
-          <div
-            className="player-container"
-            ref={this.timerRef}
-            style={{borderRadius: fullscreen ? '0' : '50px'}}
-          >
-            <ReactPlayer
-              ref={this.ref}
-              className='react-player'
-              width='100%'
-              height='100%'
-              url={url}
-              pip={pip}
-              playing={playing}
-              controls={controls}
-              light={light}
-              loop={loop}
-              playbackRate={playbackRate}
-              volume={volume}
-              muted={muted}
-              onReady={() => console.log('onReady')}
-              onStart={() => console.log('onStart')}
-              onPlay={this.handlePlay}
-              onEnablePIP={this.handleEnablePIP}
-              onDisablePIP={this.handleDisablePIP}
-              onPause={this.handlePause}
-              onBuffer={() => console.log('onBuffer')}
-              onSeek={e => console.log('onSeek', e)}
-              onEnded={this.handleEnded}
-              onError={e => console.log('onError', e)}
-              onProgress={this.handleProgress}
-              onDuration={this.handleDuration}
-              onClick={this.handleTogglePlay}
-            />
-            <div className="interval-timer">
-              {inhaleDone && (<CountdownCircleTimer
-                size={80}
-                isPlaying={playing}
-                duration={inhale}
-                colors={"#00B0F0"}
-                onComplete={() => playing && this.setState({inhaleDone: false, delayDone: true})}
-              >
-                <ReactPlayer
-                  url={audioTick}
-                  volume={volume}
-                  loop={false}
-                  playing={playing && inhaleDone}
-                  width="0"
-                  height="0"
-                />
-              </CountdownCircleTimer>)}
-              {delayDone && (<CountdownCircleTimer
-                size={80}
-                isPlaying={playing}
-                duration={delay}
-                colors={"#ED7D31"}
-                onComplete={() => playing && this.setState({delayDone: false, exhaleDone: true})}
-              >
-                <ReactPlayer
-                  url={audioTick}
-                  volume={volume}
-                  loop={false}
-                  playing={delayDone}
-                  width="0"
-                  height="0"
-                />
-              </CountdownCircleTimer>)}
-              {exhaleDone && (<CountdownCircleTimer
-                size={80}
-                isPlaying={playing}
-                duration={exhale}
-                colors={"#A76FF0"}
-                onComplete={() => playing && this.setState({exhaleDone: false, pauseDone: true})}
-              >
-                <ReactPlayer
-                  url={audioTick}
-                  volume={volume}
-                  loop={false}
-                  playing={exhaleDone}
-                  width="0"
-                  height="0"
-                />
-              </CountdownCircleTimer>)}
-              {pauseDone && (<CountdownCircleTimer
-                size={80}
-                isPlaying={playing}
-                duration={pause}
-                colors={"#00B050"}
-                onComplete={() => playing && this.setState({pauseDone: false, inhaleDone: true})}
-              >
-                <ReactPlayer
-                  url={audioTick}
-                  volume={volume}
-                  loop={false}
-                  playing={pauseDone}
-                  width="0"
-                  height="0"
-                />
-              </CountdownCircleTimer>)}
-            </div>
+        <div
+          className="player-container"
+          ref={this.timerRef}
+          style={{borderRadius: fullscreen ? '0' : '50px'}}
+        >
+          <ReactPlayer
+            ref={this.ref}
+            className='react-player'
+            width='100%'
+            height='100%'
+            url={url}
+            pip={pip}
+            playing={playing}
+            controls={controls}
+            light={light}
+            loop={loop}
+            playbackRate={playbackRate}
+            volume={volume}
+            muted={muted}
+            onReady={() => console.log('onReady')}
+            onStart={() => console.log('onStart')}
+            onPlay={this.handlePlay}
+            onEnablePIP={this.handleEnablePIP}
+            onDisablePIP={this.handleDisablePIP}
+            onPause={this.handlePause}
+            onBuffer={() => console.log('onBuffer')}
+            onSeek={e => console.log('onSeek', e)}
+            onEnded={this.handleEnded}
+            onError={e => console.log('onError', e)}
+            onProgress={this.handleProgress}
+            onDuration={this.handleDuration}
+            onClick={this.handleTogglePlay}
+          />
+          <div className="interval-timer">
+            {inhaleDone && (<CountdownCircleTimer
+              size={80}
+              isPlaying={playing}
+              duration={inhale}
+              colors={"#00B0F0"}
+              onComplete={() => playing && this.setState({inhaleDone: false, delayDone: true})}
+            >
+              <ReactPlayer
+                url={audioTick}
+                volume={volume}
+                muted={muted}
+                loop={false}
+                playing={playing && inhaleDone}
+                width="0"
+                height="0"
+              />
+            </CountdownCircleTimer>)}
+            {delayDone && (<CountdownCircleTimer
+              size={80}
+              isPlaying={playing}
+              duration={delay}
+              colors={"#ED7D31"}
+              onComplete={() => playing && this.setState({delayDone: false, exhaleDone: true})}
+            >
+              <ReactPlayer
+                url={audioTick}
+                volume={volume}
+                muted={muted}
+                loop={false}
+                playing={delayDone}
+                width="0"
+                height="0"
+              />
+            </CountdownCircleTimer>)}
+            {exhaleDone && (<CountdownCircleTimer
+              size={80}
+              isPlaying={playing}
+              duration={exhale}
+              colors={"#A76FF0"}
+              onComplete={() => playing && this.setState({exhaleDone: false, pauseDone: true})}
+            >
+              <ReactPlayer
+                url={audioTick}
+                volume={volume}
+                muted={muted}
+                loop={false}
+                playing={exhaleDone}
+                width="0"
+                height="0"
+              />
+            </CountdownCircleTimer>)}
+            {pauseDone && (<CountdownCircleTimer
+              size={80}
+              isPlaying={playing}
+              duration={pause}
+              colors={"#00B050"}
+              onComplete={() => playing && this.setState({pauseDone: false, inhaleDone: true})}
+            >
+              <ReactPlayer
+                url={audioTick}
+                volume={volume}
+                muted={muted}
+                loop={false}
+                playing={pauseDone}
+                width="0"
+                height="0"
+              />
+            </CountdownCircleTimer>)}
           </div>
-        ) : (
-          <></>
-        )}
+        </div>
         <ReactPlayer
           url={this.audioSrc.src}
           volume={volume}

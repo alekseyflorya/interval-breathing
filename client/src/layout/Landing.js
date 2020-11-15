@@ -8,10 +8,10 @@ function Landing() {
   return (
     <Container>
       <Row>
-        <Col className="content" sm="10">
+        <Col className="content" lg="10" md="12" sm="12" >
           <Player />
         </Col>
-        <Col className="aside" sm="2">
+        <Col className="aside" lg="2" md="12" sm="12" >
           <Aside buttons />
         </Col>
       </Row>

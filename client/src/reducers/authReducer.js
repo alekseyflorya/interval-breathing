@@ -13,7 +13,7 @@ import {
 } from '../actions/types';
 
 const initialState = localStorage.setParams ? JSON.parse(localStorage.setParams) : {
-  token: localStorage.getItem('token'),
+  token: localStorage.getItem('token') ? localStorage.getItem('token') : null,
   isAuthenticated: null,
   isLoading: false,
   user: {
@@ -43,7 +43,6 @@ const initialState = localStorage.setParams ? JSON.parse(localStorage.setParams)
 export default function(state = initialState, action) {
   switch (action.type) {
     case USER_LOADING:
-      localStorage.setItem('setParams', JSON.stringify(state))
       return {
         ...state,
         isLoading: true
@@ -71,7 +70,12 @@ export default function(state = initialState, action) {
     case LOGOUT_SUCCESS:
     case REGISTER_FAIL:
       localStorage.removeItem('token');
-      localStorage.setItem('setParams', JSON.stringify(state))
+      localStorage.setItem('setParams', JSON.stringify({
+        ...state,
+        token: null,
+        isAuthenticated: false,
+        isLoading: false,
+      }))
       return {
         ...state,
         token: null,

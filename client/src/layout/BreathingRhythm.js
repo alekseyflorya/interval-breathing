@@ -59,7 +59,7 @@ function BreathingRhythm ({inhale, delay, exhale, pause, useSuggestedRhythms, su
         </Col>
       </Row>
       <Row style={{marginBottom: '10px'}}>
-        <Col xs={12} sm={{size: 4, offset:1 }} md={{size: 6, offset: 0}}>
+        <Col xs={12} sm={{size: 6, offset:0 }} md={{size: 5, offset: 0}}>
           <div>
             <input type="radio" name="rhythm" id="rhythm1" checked={isSuggestedRhythms} onChange={changeSuggestedRhythms} />
             <label htmlFor="rhythm1" className="rhythm-label">Use the suggested rhythms</label>
@@ -68,7 +68,7 @@ function BreathingRhythm ({inhale, delay, exhale, pause, useSuggestedRhythms, su
             <RhythmSlider rhythms={rhythms} selectedSuggestedRhythm={selectedSuggestedRhythm} changeSuggestedRhythm={changeSuggestedRhythm} />
           </div>
         </Col>
-        <Col xs={12} sm={{size: 6, offset: 1}} md={{size: 6, offset: 0}}>
+        <Col xs={12} sm={{size: 6, offset: 0}} md={{size: 7, offset: 0}}>
           <div>
             <input type="radio" name="rhythm" id="rhythm2" checked={!isSuggestedRhythms} onChange={changeSuggestedRhythms} />
             <label htmlFor="rhythm2" className="rhythm-label">Set your own rhythm</label>
@@ -113,7 +113,7 @@ function BreathingRhythm ({inhale, delay, exhale, pause, useSuggestedRhythms, su
                 <input
                   disabled={isSuggestedRhythms}
                   className="rhythm-input disabled"
-                  type="number" min="0" max="60" name="pause"
+                  type="number" min="0" max="60"
                   name="pause"
                   value={!isSuggestedRhythms && userRhythm.pause}
                   onChange={changeOwnRhythm}
@@ -121,23 +121,23 @@ function BreathingRhythm ({inhale, delay, exhale, pause, useSuggestedRhythms, su
                 <span className="rhythm-subtitle" style={{marginLeft: '5px'}}> sec</span>
               </Col>
 
-              <Col xs={12} sm={12}>
+              <Col xs={12} sm={12} md={12}>
                 <div className="info-block d-flex mb-5">
-                  <div className="info-block-description col-sm-7">
+                  <div className="info-block-description col-sm-12 col-md-12 col-lg-7">
                     <p>The descriptive part: what is achieved by a given breathing rhythm. The controlled breathing technique helps to slow down breathing</p>
                   </div>
-                  <div className="info-block-options col-sm-5">
+                  <div className="info-block-options col-sm-12 col-md-12 col-lg-5">
                     <p>
-                      <span>Inhale:</span> <strong>{userRhythm.inhale} sec</strong>
+                      <span className="info-block-params-title">Inhale:</span> <strong>{userRhythm.inhale} sec</strong>
                     </p>
                     <p>
-                      <span>Delay:</span> <strong>{userRhythm.delay} sec</strong>
+                      <span className="info-block-params-title">Delay:</span> <strong>{userRhythm.delay} sec</strong>
                     </p>
                     <p>
-                      <span>Exhale:</span> <strong>{userRhythm.exhale} sec</strong>
+                      <span className="info-block-params-title">Exhale:</span> <strong>{userRhythm.exhale} sec</strong>
                     </p>
                     <p>
-                      <span>Pause:</span> <strong>{userRhythm.pause} sec</strong>
+                      <span className="info-block-params-title">Pause:</span> <strong>{userRhythm.pause} sec</strong>
                     </p>
                     <p>
                       <span>Inhalation per minute:</span> <strong>{calculateInhalePerMin} cycles</strong>

@@ -27,7 +27,7 @@ function RhythmSlider({rhythms, selectedSuggestedRhythm, changeSuggestedRhythm})
 
   return (
     <>
-      <div className="audio-slider-container col-sm-8 col-md-12">
+      <div className="audio-slider-container col-sm-12 col-md-11 col-lg-9">
         <Slider {...settings}>
           {tracks}
         </Slider>

@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
+const {body, validationResult} = require('express-validator')
 const config = require('config');
 const jwt = require('jsonwebtoken');
 const auth = require('../../middleware/auth');
@@ -12,12 +13,21 @@ const User = require('../../models/User');
 // @route   POST api/auth
 // @desc    Auth user
 // @access  Public
-router.post('/', (req, res) => {
+router.post('/',
+  [
+    body('name', 'Name will be min 3 symbols').isAlpha().isLength({min: 3}).trim(),
+    body('email', 'Enter the correct Email').isEmail().normalizeEmail(),
+    body('password', 'Password will be minimum 6 symbols').isLength({min: 6, max: 36}).trim()
+  ],
+  (req, res) => {
   const { email, password } = req.body;
 
+  const errors = validationResult(req)
+
+  console.log(errors)
   // Simple validation
-  if(!email || !password) {
-    return res.status(400).json({ msg: 'Please enter all fields' });
+  if(!email || !password || !errors.isEmpty()) {
+    return res.status(400).json({ msg: 'Please enter valid data!' });
   }
 
   // Check for existing user

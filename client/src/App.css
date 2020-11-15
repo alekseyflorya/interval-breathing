@@ -1,3 +1,7 @@
+@font-face {
+  font-family: Nyala;
+  src: url('./assets/fonts/nyala.ttf');
+}
 /* Reset */
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -202,7 +206,9 @@ textarea {
   color: #000;
   padding: 0.2em 0;
 }
-/* Reset End */
+
+/***** Reset End *****/
+
 
 .main {
   background: url('./assets/images/main-bg.jpg');
@@ -321,6 +327,9 @@ textarea {
 }
 .fullscreen-btn svg{
   transform: scale(0.8,0.6);
+}
+.nav-tabs .nav-link, .form-group{
+  font-family: Nyala;
 }
 .nav-tabs .nav-link:hover{
   border-color: transparent;
@@ -484,6 +493,14 @@ textarea {
 .rhythm-subtitle{
   margin-left: 10px;
 }
+.info-block-params-title{
+  display: inline-block;
+  min-width: 3.3rem;
+}
+.info-block-param-title{
+  display: inline-block;
+  min-width: 2.7rem;
+}
 .submit-buttons-box{
   display: flex;
   align-items: flex-end;
@@ -533,20 +550,53 @@ textarea {
   width: 100%;
 }
 
-@media(max-width: 900px) {
+@media(max-width: 991px) {
   .main {
     height: 100%;
   }
+  .buttons-block{
+    display: flex;
+    justify-content: space-between;
+  }
   .navlink-btn{
-    font-size: 1rem;
+    font-size: 0.8rem;
+    padding: 5px;
+    height: 120px;
+    border-radius: 15px;
+    width: 40%;
+  }
+  .navlink-btn img{
+    max-width: 100%;
+  }
+  .info-block{
+    display: flex;
+  }
+  .info-block-options{
+    margin-right: 15px;
+  }
+  .info-block-description{
+    max-width: 60%;
+    font-size: 1.5rem;
   }
   .header-title{
     font-size: 2.5rem;
     margin-right: 30px;
   }
+  .rhythm-title{
+    font-size: 1.4rem;
+  }
+  .rhythm-label{
+    font-size: 1.5rem;
+  }
+  .info-block.d-flex{
+    flex-direction: column-reverse;
+  }
+  .info-block.d-flex .info-block-description{
+    max-width: 100%;
+  }
 }
 
-@media(max-width: 600px) {
+@media(max-width: 575px) {
   .main {
     height: 100%;
   }
@@ -556,17 +606,21 @@ textarea {
   .player-controls-container .float-right{
     margin-left: 10px;
   }
-  .buttons-block{
-    display: flex;
-    justify-content: space-between;
-  }
   .navlink-btn{
     width: 47%;
     padding: 16px 8px;
     height: 120px;
+    font-size: 1rem;
+    border-radius: 30px;
+  }
+  .logout-title{
+    display: none;
   }
   .volume-range {
     width: 30%;
+  }
+  .info-block-description{
+    font-size: 1.2rem;
   }
   .submit-buttons-box .submit-buttons{
     margin-top: 30px;
@@ -585,7 +639,7 @@ textarea {
     margin-top: 50px;
   }
   .rhythm-title{
-    min-width: 4.5rem;
+    min-width: 4rem;
     font-size: 1.4rem;
   }
   .rhythm-input{
@@ -596,6 +650,9 @@ textarea {
   .rhythm-subtitle{
     margin-left: 5px;
   }
+}
+@media(max-width: 480px) {
+
 }
 
 
