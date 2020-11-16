@@ -32,6 +32,11 @@ import audio34 from '../assets/audio/music/Инструментальная Зо
 import audio35 from '../assets/audio/music/Оазис глубокой сна - Быстрый сон с фортепиано.mp3'
 
 import audioTick from '../assets/audio/cycle/ring1-1.mp3'
+import audioTick1 from '../assets/audio/cycle/ПЦ-80-1.mp3'
+import audioTick2 from '../assets/audio/cycle/ПЦ-60-1.mp3'
+import audioTick3 from '../assets/audio/cycle/ПЦ-70-1.mp3'
+import metronom from '../assets/audio/cycle/метроном1.mp3'
+
 
 const videosArray = [{id: 0, src: video1}, {id: 1, src: video2}, {id: 2, src: video3}, {id: 3, src: video4}, {id: 4, src: video5}];
 const audioArray = [
@@ -78,8 +83,6 @@ class Player extends Component {
     pauseDone: false,
     fullscreen: false
   }
-
-
 
   load = url => {
     this.setState({
@@ -151,11 +154,11 @@ class Player extends Component {
   timerRef = timer => {
     this.timer = timer
   }
-  componentDidMount() {
-    screenfull.on('change', () => {
-      this.setState({fullscreen: screenfull.isFullscreen})
-    });
-  }
+  // componentDidMount() {
+  //   screenfull.on('change', () => {
+  //     this.setState({fullscreen: screenfull.isFullscreen})
+  //   });
+  // }
 
   audioSrc = audioArray.filter(({id}) => id === this.props.audio.trackId)[0]
 
@@ -164,6 +167,10 @@ class Player extends Component {
       url, playing, controls, light, volume, muted, loop, playbackRate, pip,
       inhale, exhale, delay, pause, fullscreen,
       inhaleDone, delayDone, exhaleDone, pauseDone} = this.state
+
+    screenfull.on('change', () => {
+      this.setState({fullscreen: screenfull.isFullscreen})
+    });
 
     return (
       <>

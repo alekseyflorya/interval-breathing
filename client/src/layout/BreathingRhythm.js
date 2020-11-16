@@ -6,11 +6,11 @@ import {Link} from "react-router-dom"
 import {editParams} from "../actions/authActions"
 
 const rhythms = [
-  {inhale: 1, delay: 0, exhale: 3, pause: 0, name: 'Clean breath', id: 0},
-  {inhale: 1, delay: 0, exhale: 2, pause: 2, name: 'Relaxation', id: 1},
-  {inhale: 1, delay: 2, exhale: 1, pause: 2, name: 'Calmness', id: 2},
-  {inhale: 1, delay: 2, exhale: 2, pause: 0, name: 'Power', id: 3},
-  {inhale: 3, delay: 0, exhale: 2, pause: 0, name: 'Antistress', id: 4},
+  {inhale: 3, delay: 0, exhale: 9, pause: 0, name: 'Clean breath', id: 0},
+  {inhale: 3, delay: 0, exhale: 6, pause: 6, name: 'Relaxation', id: 1},
+  {inhale: 3, delay: 6, exhale: 3, pause: 6, name: 'Calmness', id: 2},
+  {inhale: 3, delay: 6, exhale: 6, pause: 0, name: 'Power', id: 3},
+  {inhale: 6, delay: 0, exhale: 3, pause: 0, name: 'Antistress', id: 4},
 ]
 
 function BreathingRhythm ({inhale, delay, exhale, pause, useSuggestedRhythms, suggestedRhythm, editParams}) {
@@ -80,7 +80,10 @@ function BreathingRhythm ({inhale, delay, exhale, pause, useSuggestedRhythms, su
                 <input
                   disabled={isSuggestedRhythms}
                   className="rhythm-input disabled"
-                  type="number" min="0" max="60" name="inhale"
+                  type="number"
+                  min="0"
+                  max="15"
+                  name="inhale"
                   value={!isSuggestedRhythms && userRhythm.inhale}
                   onChange={changeOwnRhythm}
                 />
@@ -91,7 +94,10 @@ function BreathingRhythm ({inhale, delay, exhale, pause, useSuggestedRhythms, su
                 <input
                   disabled={isSuggestedRhythms}
                   className="rhythm-input disabled"
-                  type="number" min="0" max="60" name="delay"
+                  type="number"
+                  min="0"
+                  max="15"
+                  name="delay"
                   value={!isSuggestedRhythms && userRhythm.delay}
                   onChange={changeOwnRhythm}
                 />
@@ -102,7 +108,10 @@ function BreathingRhythm ({inhale, delay, exhale, pause, useSuggestedRhythms, su
                 <input
                   disabled={isSuggestedRhythms}
                   className="rhythm-input disabled"
-                  type="number" min="0" max="60" name="exhale"
+                  type="number"
+                  min="0"
+                  max="15"
+                  name="exhale"
                   value={!isSuggestedRhythms && userRhythm.exhale}
                   onChange={changeOwnRhythm}
                 />
@@ -113,7 +122,9 @@ function BreathingRhythm ({inhale, delay, exhale, pause, useSuggestedRhythms, su
                 <input
                   disabled={isSuggestedRhythms}
                   className="rhythm-input disabled"
-                  type="number" min="0" max="60"
+                  type="number"
+                  min="0"
+                  max="15"
                   name="pause"
                   value={!isSuggestedRhythms && userRhythm.pause}
                   onChange={changeOwnRhythm}
