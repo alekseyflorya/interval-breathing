@@ -12,7 +12,7 @@ import './App.css';
 import Landing from './layout/Landing';
 import Background from './layout/Background';
 import BreathingRhythm from './layout/BreathingRhythm';
-import {Route, BrowserRouter as Router} from 'react-router-dom';
+import {Switch, Route, BrowserRouter as Router} from 'react-router-dom';
 
 
 class App extends Component {
@@ -24,12 +24,14 @@ class App extends Component {
     return (
       <Provider store={store}>
         <Router>
-          <div className="main">
-            <AppNavbar />
-            <Route exact path="/" component={Landing} />
-            <Route exact path="/background" component={Background} />
-            <Route exact path="/rhythm" component={BreathingRhythm} />
-          </div>
+          <Switch>
+            <div className="main">
+              <AppNavbar />
+              <Route exact path="/" component={Landing} />
+              <Route exact path="/background" component={Background} />
+              <Route exact path="/rhythm" component={BreathingRhythm} />
+            </div>
+          </Switch>
         </Router>
       </Provider>
     );

@@ -154,11 +154,11 @@ class Player extends Component {
   timerRef = timer => {
     this.timer = timer
   }
-  // componentDidMount() {
-  //   screenfull.on('change', () => {
-  //     this.setState({fullscreen: screenfull.isFullscreen})
-  //   });
-  // }
+  componentDidMount() {
+    screenfull.on('change', () => {
+      this.setState({fullscreen: screenfull.isFullscreen})
+    });
+  }
 
   audioSrc = audioArray.filter(({id}) => id === this.props.audio.trackId)[0]
 
@@ -167,10 +167,6 @@ class Player extends Component {
       url, playing, controls, light, volume, muted, loop, playbackRate, pip,
       inhale, exhale, delay, pause, fullscreen,
       inhaleDone, delayDone, exhaleDone, pauseDone} = this.state
-
-    screenfull.on('change', () => {
-      this.setState({fullscreen: screenfull.isFullscreen})
-    });
 
     return (
       <>
