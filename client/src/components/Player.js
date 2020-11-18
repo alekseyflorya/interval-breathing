@@ -79,7 +79,8 @@ class Player extends Component {
     inhaleDone: true,
     delayDone: false,
     exhaleDone: false,
-    pauseDone: false
+    pauseDone: false,
+    iPhone: navigator.userAgent.indexOf("iPhone") !== -1
   }
 
   load = url => {
@@ -139,7 +140,12 @@ class Player extends Component {
   }
 
   handleClickFullscreen = () => {
-    screenfull.request(findDOMNode(this.timer))
+    if(navigator.userAgent.indexOf("iPhone") !== -1) {
+      console.log('Is this iPhone? ',this.state.iPhone)
+    } else {
+      screenfull.request(findDOMNode(this.timer))
+      this.setState({iPhone: false})
+    }
   }
 
   handleTogglePlay = () => {
@@ -195,11 +201,6 @@ class Player extends Component {
             onProgress={this.handleProgress}
             onDuration={this.handleDuration}
             onClick={this.handleTogglePlay}
-            config={{
-              options: {
-                allowfullscreen: true,
-              }
-            }}
           />
           <div className="interval-timer">
             {inhaleDone && (<CountdownCircleTimer

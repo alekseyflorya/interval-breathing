@@ -259,11 +259,14 @@ textarea {
   position: absolute;
   right: 15px;
   z-index: 10;
-  padding-bottom: 4px;
+  /*padding-bottom: 4px;*/
   outline: 0!important;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.sign-btn svg {
+  overflow: visible;
 }
 .sign-out-btn{
   color: #ffffff;
@@ -272,8 +275,6 @@ textarea {
   width: 2.2rem;
   height: 2.2rem;
   border: none;
-  padding-left: 9px;
-  padding-bottom: 3px;
   position: absolute;
   right: 15px;
   z-index: 10;
@@ -281,6 +282,9 @@ textarea {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.sign-out-btn svg {
+  overflow: visible;
 }
 .content{
 
@@ -551,7 +555,7 @@ textarea {
   position: absolute;
   bottom: 30px;
   right: 30px;
-  zIndex: 9000;
+  z-index: 1049;
 }
 .interval-timer-item{
   width: 50px;
