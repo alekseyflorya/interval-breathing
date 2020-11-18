@@ -261,6 +261,9 @@ textarea {
   z-index: 10;
   padding-bottom: 4px;
   outline: 0!important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .sign-out-btn{
   color: #ffffff;
@@ -275,6 +278,9 @@ textarea {
   right: 15px;
   z-index: 10;
   outline: 0!important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .content{
 
@@ -282,13 +288,20 @@ textarea {
 .aside{
 
 }
-.player-container {
-  background-color: black;
-  position: relative;
+.player-container-rounded{
   overflow: hidden;
   border-radius: 50px;
   margin-bottom: 30px;
   box-shadow: rgba(0, 0, 0, 0.6) -2px 1px 4px, rgba(255, 255, 255, 0.6) 2px -1px 1px;
+
+}
+.player-container {
+  background-color: black;
+  position: relative;
+  /*overflow: hidden;*/
+  /*border-radius: 50px;*/
+  /*margin-bottom: 30px;*/
+  /*box-shadow: rgba(0, 0, 0, 0.6) -2px 1px 4px, rgba(255, 255, 255, 0.6) 2px -1px 1px;*/
 }
 .react-player video{
   display: block;

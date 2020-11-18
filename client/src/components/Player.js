@@ -31,7 +31,6 @@ import audio33 from '../assets/audio/music/Академия глубокой р�
 import audio34 from '../assets/audio/music/Инструментальная Зона Отдыха - Физическое восстановление.mp3'
 import audio35 from '../assets/audio/music/Оазис глубокой сна - Быстрый сон с фортепиано.mp3'
 
-import audioTick from '../assets/audio/cycle/ring1-1.mp3'
 import audioTick1 from '../assets/audio/cycle/ПЦ-80-1.mp3'
 import audioTick2 from '../assets/audio/cycle/ПЦ-60-1.mp3'
 import audioTick3 from '../assets/audio/cycle/ПЦ-70-1.mp3'
@@ -80,8 +79,7 @@ class Player extends Component {
     inhaleDone: true,
     delayDone: false,
     exhaleDone: false,
-    pauseDone: false,
-    fullscreen: false
+    pauseDone: false
   }
 
   load = url => {
@@ -154,26 +152,21 @@ class Player extends Component {
   timerRef = timer => {
     this.timer = timer
   }
-  componentDidMount() {
-    screenfull.on('change', () => {
-      this.setState({fullscreen: screenfull.isFullscreen})
-    });
-  }
 
   audioSrc = audioArray.filter(({id}) => id === this.props.audio.trackId)[0]
 
   render() {
     const {
       url, playing, controls, light, volume, muted, loop, playbackRate, pip,
-      inhale, exhale, delay, pause, fullscreen,
+      inhale, exhale, delay, pause, playedSeconds, played,
       inhaleDone, delayDone, exhaleDone, pauseDone} = this.state
 
     return (
       <>
+      <div className="player-container-rounded">
         <div
           className="player-container"
           ref={this.timerRef}
-          style={{borderRadius: fullscreen ? '0' : '50px'}}
         >
           <ReactPlayer
             ref={this.ref}
@@ -212,8 +205,8 @@ class Player extends Component {
               onComplete={() => playing && this.setState({inhaleDone: false, delayDone: true})}
             >
               <ReactPlayer
-                url={audioTick}
-                volume={volume}
+                url={audioTick1}
+                volume={volume * 0.3}
                 muted={muted}
                 loop={false}
                 playing={playing && inhaleDone}
@@ -229,7 +222,7 @@ class Player extends Component {
               onComplete={() => playing && this.setState({delayDone: false, exhaleDone: true})}
             >
               <ReactPlayer
-                url={audioTick}
+                url={audioTick2}
                 volume={volume}
                 muted={muted}
                 loop={false}
@@ -246,8 +239,8 @@ class Player extends Component {
               onComplete={() => playing && this.setState({exhaleDone: false, pauseDone: true})}
             >
               <ReactPlayer
-                url={audioTick}
-                volume={volume}
+                url={audioTick3}
+                volume={volume * 0.6}
                 muted={muted}
                 loop={false}
                 playing={exhaleDone}
@@ -263,7 +256,7 @@ class Player extends Component {
               onComplete={() => playing && this.setState({pauseDone: false, inhaleDone: true})}
             >
               <ReactPlayer
-                url={audioTick}
+                url={audioTick2}
                 volume={volume}
                 muted={muted}
                 loop={false}
@@ -285,6 +278,18 @@ class Player extends Component {
           width="0"
           height="0"
         />
+        <ReactPlayer
+          url={metronom}
+          volume={volume * 0.4}
+          muted={muted}
+          loop={loop}
+          playing={playing}
+          onPlay={this.handlePlay}
+          onPause={this.handlePause}
+          width="0"
+          height="0"
+        />
+      </div>
         <div className="player-controls-container">
           <button className={playing ? 'pause-btn': 'play-btn'} onClick={playing ? this.handlePause : this.handlePlay }>
             {playing ? <PauseFill/> : <PlayFill />}

@@ -14,7 +14,7 @@ const User = require('../../models/User');
 // @access  Public
 router.post('/',
   [
-    body('name', 'Name will be min 3 symbols').isAlpha().isLength({min: 3}).trim(),
+    body('name', 'Name will be min 3 symbols').isAlpha().trim(),
     body('email', 'Enter the correct Email').isEmail().normalizeEmail(),
     body('password', 'Password will be minimum 6 symbols').isLength({min: 6, max: 36}).trim()
   ],
