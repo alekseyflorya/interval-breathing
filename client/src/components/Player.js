@@ -158,7 +158,7 @@ class Player extends Component {
   render() {
     const {
       url, playing, controls, light, volume, muted, loop, playbackRate, pip,
-      inhale, exhale, delay, pause, playedSeconds, played,
+      inhale, exhale, delay, pause,
       inhaleDone, delayDone, exhaleDone, pauseDone} = this.state
 
     return (
@@ -195,6 +195,11 @@ class Player extends Component {
             onProgress={this.handleProgress}
             onDuration={this.handleDuration}
             onClick={this.handleTogglePlay}
+            config={{
+              options: {
+                allowfullscreen: true,
+              }
+            }}
           />
           <div className="interval-timer">
             {inhaleDone && (<CountdownCircleTimer

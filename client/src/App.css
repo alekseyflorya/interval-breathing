@@ -289,24 +289,22 @@ textarea {
 
 }
 .player-container-rounded{
-  overflow: hidden;
+  /*overflow: hidden;*/
   border-radius: 50px;
   margin-bottom: 30px;
   box-shadow: rgba(0, 0, 0, 0.6) -2px 1px 4px, rgba(255, 255, 255, 0.6) 2px -1px 1px;
-
+  position: relative;
 }
 .player-container {
   background-color: black;
-  position: relative;
-  /*overflow: hidden;*/
-  /*border-radius: 50px;*/
-  /*margin-bottom: 30px;*/
-  /*box-shadow: rgba(0, 0, 0, 0.6) -2px 1px 4px, rgba(255, 255, 255, 0.6) 2px -1px 1px;*/
+  /*position: relative;*/
+  border-radius: 50px;
 }
 .react-player video{
   display: block;
   max-width: 100%;
   height: auto;
+  border-radius: 50px;
 }
 .player-controls-container{
 
