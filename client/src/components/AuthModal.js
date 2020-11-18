@@ -68,7 +68,8 @@ class AuthModal extends Component {
         password
       };
       // Attempt to register
-      this.props.register(newUser);
+      this.props.register(newUser)
+      this.setState({name: '', email: '', password: ''})
     } else {
       const user = {
         email,
@@ -76,6 +77,7 @@ class AuthModal extends Component {
       };
       // Attempt to login
       this.props.login(user);
+      this.setState({name: '', email: '', password: ''})
     }
   };
 
@@ -128,6 +130,7 @@ class AuthModal extends Component {
                       <Input
                         type='text'
                         name='name'
+                        value={this.state.name}
                         id='name'
                         placeholder='Name'
                         className='mb-3'
@@ -139,6 +142,7 @@ class AuthModal extends Component {
                         type='email'
                         name='email'
                         id='email'
+                        value={this.state.email}
                         placeholder='Email'
                         className='mb-3'
                         onChange={this.onChange}
@@ -148,6 +152,7 @@ class AuthModal extends Component {
                       <Input
                         type='password'
                         name='password'
+                        value={this.state.password}
                         id='password'
                         placeholder='Password'
                         className='mb-3'
@@ -167,6 +172,7 @@ class AuthModal extends Component {
                         type='email'
                         name='email'
                         id='email'
+                        value={this.state.email}
                         placeholder='Email'
                         className='mb-3'
                         onChange={this.onChange}
@@ -177,6 +183,7 @@ class AuthModal extends Component {
                         type='password'
                         name='password'
                         id='password'
+                        value={this.state.password}
                         placeholder='Password'
                         className='mb-3'
                         onChange={this.onChange}
