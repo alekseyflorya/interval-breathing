@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import ReactPlayer from 'react-player'
 import { findDOMNode } from 'react-dom'
 import screenfull from 'screenfull'
-import {PlayFill, PauseFill, Fullscreen, VolumeOffFill, VolumeMuteFill } from 'react-bootstrap-icons'
+import {PlayFill, PauseFill, Fullscreen, FullscreenExit, VolumeOffFill, VolumeMuteFill } from 'react-bootstrap-icons'
 // import FiguresPlayer from "./FiguresPlayer"
 import {connect} from "react-redux"
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
@@ -80,7 +80,8 @@ class Player extends Component {
     delayDone: false,
     exhaleDone: false,
     pauseDone: false,
-    iPhone: navigator.userAgent.indexOf("iPhone") !== -1
+    iPhone: navigator.userAgent.indexOf("iPhone") !== -1,
+    isFullscreen: false
   }
 
   load = url => {
@@ -140,12 +141,19 @@ class Player extends Component {
   }
 
   handleClickFullscreen = () => {
+    console.log('this.timer ',this.timer)
+    console.log('this.player', this.player)
     if(navigator.userAgent.indexOf("iPhone") !== -1) {
-      console.log('Is this iPhone? ',this.state.iPhone)
+      // this.timer.webkitEnterFullscreen();
+      this.setState({isFullscreen: true})
     } else {
       screenfull.request(findDOMNode(this.timer))
       this.setState({iPhone: false})
     }
+  }
+
+  toggleFullScreen = () => {
+    this.setState({isFullscreen: false})
   }
 
   handleTogglePlay = () => {
@@ -159,13 +167,40 @@ class Player extends Component {
     this.timer = timer
   }
 
+  inhaleComplete = () => {
+    if(this.state.playing) this.setState({inhaleDone: false, delayDone: true})
+  }
+
+  delayComplete = () => {
+    if(this.state.playing) this.setState({delayDone: false, exhaleDone: true})
+  }
+
+  exhaleComplete = () => {
+    if(this.state.playing) this.setState({exhaleDone: false, pauseDone: true})
+  }
+
+  pauseComplete = () => {
+    if(this.state.playing) this.setState({pauseDone: false, inhaleDone: true})
+  }
+
   audioSrc = audioArray.filter(({id}) => id === this.props.audio.trackId)[0]
 
   render() {
     const {
       url, playing, controls, light, volume, muted, loop, playbackRate, pip,
-      inhale, exhale, delay, pause,
+      inhale, exhale, delay, pause, isFullscreen,
       inhaleDone, delayDone, exhaleDone, pauseDone} = this.state
+
+    const fullScr = isFullscreen ? {
+      position: 'fixed',
+      top: '0',
+      left: '0',
+      width: '100%',
+      height: '100%',
+      backgroundColor: '#000000',
+      zIndex: 1048,
+      borderRadius: 0,
+    } : null
 
     return (
       <>
@@ -173,7 +208,13 @@ class Player extends Component {
         <div
           className="player-container"
           ref={this.timerRef}
+          style={fullScr}
         >
+          {isFullscreen && (
+            <button className="fullscreen-out-btn float-right" onClick={this.toggleFullScreen}>
+              <FullscreenExit/>
+            </button>
+          )}
           <ReactPlayer
             ref={this.ref}
             className='react-player'
@@ -201,6 +242,7 @@ class Player extends Component {
             onProgress={this.handleProgress}
             onDuration={this.handleDuration}
             onClick={this.handleTogglePlay}
+            playsinline={true}
           />
           <div className="interval-timer">
             {inhaleDone && (<CountdownCircleTimer
@@ -208,16 +250,17 @@ class Player extends Component {
               isPlaying={playing}
               duration={inhale}
               colors={"#00B0F0"}
-              onComplete={() => playing && this.setState({inhaleDone: false, delayDone: true})}
+              onComplete={this.inhaleComplete}
             >
               <ReactPlayer
                 url={audioTick1}
-                volume={volume * 0.3}
+                volume={volume}
                 muted={muted}
                 loop={false}
                 playing={playing && inhaleDone}
                 width="0"
                 height="0"
+                playsinline={true}
               />
             </CountdownCircleTimer>)}
             {delayDone && (<CountdownCircleTimer
@@ -225,7 +268,7 @@ class Player extends Component {
               isPlaying={playing}
               duration={delay}
               colors={"#ED7D31"}
-              onComplete={() => playing && this.setState({delayDone: false, exhaleDone: true})}
+              onComplete={this.delayComplete}
             >
               <ReactPlayer
                 url={audioTick2}
@@ -235,6 +278,7 @@ class Player extends Component {
                 playing={delayDone}
                 width="0"
                 height="0"
+                playsinline={true}
               />
             </CountdownCircleTimer>)}
             {exhaleDone && (<CountdownCircleTimer
@@ -242,16 +286,17 @@ class Player extends Component {
               isPlaying={playing}
               duration={exhale}
               colors={"#A76FF0"}
-              onComplete={() => playing && this.setState({exhaleDone: false, pauseDone: true})}
+              onComplete={this.exhaleComplete}
             >
               <ReactPlayer
                 url={audioTick3}
-                volume={volume * 0.6}
+                volume={volume}
                 muted={muted}
                 loop={false}
                 playing={exhaleDone}
                 width="0"
                 height="0"
+                playsinline={true}
               />
             </CountdownCircleTimer>)}
             {pauseDone && (<CountdownCircleTimer
@@ -259,7 +304,7 @@ class Player extends Component {
               isPlaying={playing}
               duration={pause}
               colors={"#00B050"}
-              onComplete={() => playing && this.setState({pauseDone: false, inhaleDone: true})}
+              onComplete={this.pauseComplete}
             >
               <ReactPlayer
                 url={audioTick2}
@@ -269,6 +314,7 @@ class Player extends Component {
                 playing={pauseDone}
                 width="0"
                 height="0"
+                playsinline={true}
               />
             </CountdownCircleTimer>)}
           </div>
@@ -286,7 +332,7 @@ class Player extends Component {
         />
         <ReactPlayer
           url={metronom}
-          volume={volume * 0.4}
+          volume={volume}
           muted={muted}
           loop={loop}
           playing={playing}

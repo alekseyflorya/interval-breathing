@@ -27,7 +27,8 @@ function BreathingRhythm ({inhale, delay, exhale, pause, useSuggestedRhythms, su
   })
 
   const changeOwnRhythm = (e) => {
-    setUserRhythm({...userRhythm, [e.target.name]: e.target.value})
+
+    setUserRhythm({...userRhythm, [e.target.name]: isNaN(e.target.value) ? 0 : e.target.value })
   }
 
   const changeSuggestedRhythms = () => {

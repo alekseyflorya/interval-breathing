@@ -266,8 +266,8 @@ textarea {
 }
 .sign-btn svg {
   overflow: visible;
-  width: 1.2rem;
-  height: 1.2rem;
+  width: 20px;
+  height: 20px;
 }
 .sign-out-btn{
   color: #ffffff;
@@ -286,8 +286,8 @@ textarea {
 }
 .sign-out-btn svg {
   overflow: visible;
-  width: 1.2rem;
-  height: 1.2rem;
+  width: 20px;
+  height: 20px;
 }
 .content{
 
@@ -312,6 +312,20 @@ textarea {
   max-width: 100%;
   height: auto;
   border-radius: 50px;
+}
+.fullscreen-out-btn{
+  position: absolute;
+  right: 0;
+  top: 0;
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  padding: 20px;
+  outline: 0;
+}
+.fullscreen-out-btn svg{
+  width: 2rem;
+  height: 2rem;
 }
 .player-controls-container{
 
@@ -432,12 +446,14 @@ textarea {
 }
 .slick-prev {
   left: -10px;
-
 }
 .slick-next{
   right: -10px;
 }
 .slick-slider .slick-slide {
+  padding: .5rem;
+}
+.audio-slider-container .slick-slider .slick-slide {
   padding: .5rem 0;
 }
 .videos-slider-item .video{
