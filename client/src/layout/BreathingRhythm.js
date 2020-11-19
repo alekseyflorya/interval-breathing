@@ -27,8 +27,14 @@ function BreathingRhythm ({inhale, delay, exhale, pause, useSuggestedRhythms, su
   })
 
   const changeOwnRhythm = (e) => {
+    let newValue = Number(e.target.value)
+    if(newValue > 15) {
+      newValue = 15
+    } else if(newValue < 0) {
+      newValue = 0
+    }
 
-    setUserRhythm({...userRhythm, [e.target.name]: isNaN(e.target.value) ? 0 : e.target.value })
+    setUserRhythm({...userRhythm, [e.target.name]: newValue })
   }
 
   const changeSuggestedRhythms = () => {
@@ -84,8 +90,9 @@ function BreathingRhythm ({inhale, delay, exhale, pause, useSuggestedRhythms, su
                   type="number"
                   min="0"
                   max="15"
+                  step="1"
                   name="inhale"
-                  value={!isSuggestedRhythms && userRhythm.inhale}
+                  value={userRhythm.inhale}
                   onChange={changeOwnRhythm}
                 />
                 <span className="rhythm-subtitle" style={{marginLeft: '5px'}}> sec</span>
@@ -98,8 +105,9 @@ function BreathingRhythm ({inhale, delay, exhale, pause, useSuggestedRhythms, su
                   type="number"
                   min="0"
                   max="15"
+                  step="1"
                   name="delay"
-                  value={!isSuggestedRhythms && userRhythm.delay}
+                  value={userRhythm.delay}
                   onChange={changeOwnRhythm}
                 />
                 <span className="rhythm-subtitle" style={{marginLeft: '5px'}}> sec</span>
@@ -112,8 +120,9 @@ function BreathingRhythm ({inhale, delay, exhale, pause, useSuggestedRhythms, su
                   type="number"
                   min="0"
                   max="15"
+                  step="1"
                   name="exhale"
-                  value={!isSuggestedRhythms && userRhythm.exhale}
+                  value={userRhythm.exhale}
                   onChange={changeOwnRhythm}
                 />
                 <span className="rhythm-subtitle" style={{marginLeft: '5px'}}> sec</span>
@@ -126,8 +135,9 @@ function BreathingRhythm ({inhale, delay, exhale, pause, useSuggestedRhythms, su
                   type="number"
                   min="0"
                   max="15"
+                  step="1"
                   name="pause"
-                  value={!isSuggestedRhythms && userRhythm.pause}
+                  value={userRhythm.pause}
                   onChange={changeOwnRhythm}
                 />
                 <span className="rhythm-subtitle" style={{marginLeft: '5px'}}> sec</span>
