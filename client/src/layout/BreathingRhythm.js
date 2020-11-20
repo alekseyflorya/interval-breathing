@@ -6,11 +6,51 @@ import {Link} from "react-router-dom"
 import {editParams} from "../actions/authActions"
 
 const rhythms = [
-  {inhale: 3, delay: 0, exhale: 9, pause: 0, name: 'Clean breath', id: 0},
-  {inhale: 3, delay: 0, exhale: 6, pause: 6, name: 'Relaxation', id: 1},
-  {inhale: 3, delay: 6, exhale: 3, pause: 6, name: 'Calmness', id: 2},
-  {inhale: 3, delay: 6, exhale: 6, pause: 0, name: 'Power', id: 3},
-  {inhale: 6, delay: 0, exhale: 3, pause: 0, name: 'Antistress', id: 4},
+  {
+    id: 0,
+    inhale: 3,
+    delay: 0,
+    exhale: 9,
+    pause: 0,
+    name: 'Clean breath',
+    description: 'The specific timer adjusts your breathing rhythm to release anxiety and sets you in a state of creativity and inspiration. It also tackles migraine. Practice it regularly to become focused, organized, and ready for new achievements.'
+  },
+  {
+    id: 1,
+    inhale: 3,
+    delay: 0,
+    exhale: 6,
+    pause: 6,
+    name: 'Relaxation',
+    description: 'The specially designated breathing rhythm grants you peace of mind. It helps you get rid of stress and fall asleep faster. This breathing timer removes physical tension as well. Conjure from everyday troubles to the world of relaxation.'
+  },
+  {
+    id: 2,
+    inhale: 3,
+    delay: 6,
+    exhale: 3,
+    pause: 6,
+    name: 'Calmness',
+    description: 'This breathing timer aids you to restore harmony with yourself and improves your emotional state. It clears your mind and improves your emotional state. You feel complete and are ready to make balanced decisions. Build stress resistance with regular training.'
+  },
+  {
+    id: 3,
+    inhale: 3,
+    delay: 6,
+    exhale: 6,
+    pause: 0,
+    name: 'Power',
+    description: 'The breathing rhythm charges your body and mind. You get physical and spiritual energy for successful solutions. Activate your inner resources and boost your performance with regular practice. Feel refreshed every day.'
+  },
+  {
+    id: 4,
+    inhale: 6,
+    delay: 0,
+    exhale: 3,
+    pause: 0,
+    name: 'Anti-stress',
+    description: 'The unique breathing timer releases stress and tension from work and everyday troubles. Follow the rhythm to become focused and activate your intellectual potential. Clear your mind and tune yourself for efficient and productive thinking.'
+  },
 ]
 
 function BreathingRhythm ({inhale, delay, exhale, pause, useSuggestedRhythms, suggestedRhythm, editParams}) {
@@ -146,7 +186,8 @@ function BreathingRhythm ({inhale, delay, exhale, pause, useSuggestedRhythms, su
               <Col xs={12} sm={12} md={12}>
                 <div className="info-block d-flex mb-5">
                   <div className="info-block-description col-sm-12 col-md-12 col-lg-7">
-                    <p>The descriptive part: what is achieved by a given breathing rhythm. The controlled breathing technique helps to slow down breathing</p>
+                    {isSuggestedRhythms && <p><strong>{rhythms[selectedSuggestedRhythm].name}</strong></p>}
+                    <p>{isSuggestedRhythms ? rhythms[selectedSuggestedRhythm].description : 'This is your own rhythm.'}</p>
                   </div>
                   <div className="info-block-options col-sm-12 col-md-12 col-lg-5">
                     <p>
