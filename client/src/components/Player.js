@@ -13,6 +13,10 @@ import video2 from '../assets/videos/V-ID-2.mp4'
 import video3 from '../assets/videos/V-ID-3.mp4'
 import video4 from '../assets/videos/V-ID-4.mp4'
 import video5 from '../assets/videos/V-ID-5.mp4'
+import video6 from '../assets/videos/V-ID-6.mp4'
+import video7 from '../assets/videos/V-ID-7.mp4'
+import video8 from '../assets/videos/V-ID-8.mp4'
+import video9 from '../assets/videos/V-ID-9.mp4'
 
 import audio11 from '../assets/audio/3d-audio/Heilung Musik fr Krper und Seele - Natrliche Hypnose.mp3'
 import audio12 from '../assets/audio/3d-audio/Nature Sound Series Аюрведа - Японская музыка.mp3'
@@ -32,13 +36,16 @@ import audio33 from '../assets/audio/music/Академия глубокой р�
 import audio34 from '../assets/audio/music/Инструментальная Зона Отдыха - Физическое восстановление.mp3'
 import audio35 from '../assets/audio/music/Оазис глубокой сна - Быстрый сон с фортепиано.mp3'
 
-import audioTick1 from '../assets/audio/cycle/ПЦ-80-1.mp3'
-import audioTick2 from '../assets/audio/cycle/ПЦ-60-1.mp3'
-import audioTick3 from '../assets/audio/cycle/ПЦ-70-1.mp3'
-import metronom from '../assets/audio/cycle/метроном1.mp3'
+// import audioTick1 from '../assets/audio/cycle/ПЦ-80-1.mp3'
+// import audioTick2 from '../assets/audio/cycle/ПЦ-60-1.mp3'
+// import audioTick3 from '../assets/audio/cycle/ПЦ-70-1.mp3'
+import audioTick1 from '../assets/audio/cycle/inhale.mp3'
+import audioTick2 from '../assets/audio/cycle/delay-pause.mp3'
+import audioTick3 from '../assets/audio/cycle/exhale.mp3'
 
+// import metronom from '../assets/audio/cycle/метроном1.mp3'
 
-const videosArray = [{id: 0, src: video1}, {id: 1, src: video2}, {id: 2, src: video3}, {id: 3, src: video4}, {id: 4, src: video5}];
+const videosArray = [{id: 0, src: video1}, {id: 1, src: video2}, {id: 2, src: video3}, {id: 3, src: video4}, {id: 4, src: video5}, {id: 5, src: video6}, {id: 6, src: video7}, {id: 7, src: video8}, {id: 8, src: video9}];
 const audioArray = [
   {type: 'audio', name: 'Audio 1', id: 0, src: audio11},
   {type: 'audio', name: 'Audio 2', id: 1, src: audio12},
@@ -296,17 +303,17 @@ class Player extends Component {
           width="0"
           height="0"
         />
-        <ReactPlayer
-          url={metronom}
-          volume={volume}
-          muted={muted}
-          loop={loop}
-          playing={playing}
-          onPlay={this.handlePlay}
-          onPause={this.handlePause}
-          width="0"
-          height="0"
-        />
+        {/*<ReactPlayer*/}
+        {/*  url={metronom}*/}
+        {/*  volume={volume}*/}
+        {/*  muted={muted}*/}
+        {/*  loop={loop}*/}
+        {/*  playing={playing}*/}
+        {/*  onPlay={this.handlePlay}*/}
+        {/*  onPause={this.handlePause}*/}
+        {/*  width="0"*/}
+        {/*  height="0"*/}
+        {/*/>*/}
       </div>
         <div className="player-controls-container">
           <button className={playing ? 'pause-btn': 'play-btn'} onClick={playing ? this.handlePause : this.handlePlay }>

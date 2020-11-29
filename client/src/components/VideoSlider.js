@@ -7,9 +7,13 @@ import video2 from '../assets/images/video-3.jpg'
 import video3 from '../assets/images/video-4.jpg'
 import video4 from '../assets/images/video-5.jpg'
 import video5 from '../assets/images/video-1.jpg'
+import video6 from '../assets/images/video-6.jpg'
+import video7 from '../assets/images/video-7.jpg'
+import video8 from '../assets/images/video-8.jpg'
+import video9 from '../assets/images/video-9.jpg'
 
 
-const videosArray = [{id: 0, src: video1}, {id: 1, src: video2}, {id: 2, src: video3}, {id: 3, src: video4}, {id: 4, src: video5}];
+const videosArray = [{id: 0, src: video1}, {id: 1, src: video2}, {id: 2, src: video3}, {id: 3, src: video4}, {id: 4, src: video5}, {id: 5, src: video6}, {id: 6, src: video7}, {id: 7, src: video8}, {id: 8, src: video9}];
 
 class VideoSlider extends Component {
   state = {
