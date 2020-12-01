@@ -239,28 +239,28 @@ class Player extends Component {
           <div className="interval-timer">
             {inhaleDone && (<CountdownCircleTimer
               size={80}
-              isPlaying={playing && inhaleDone}
+              isPlaying={playing}
               duration={inhale}
               colors={"#00B0F0"}
               onComplete={() => playing && this.setState({inhaleDone: false, delayDone: true, audioTick: audioTick2})}
             />)}
             {delayDone && (<CountdownCircleTimer
               size={80}
-              isPlaying={playing && delayDone}
+              isPlaying={playing}
               duration={delay}
               colors={"#ED7D31"}
               onComplete={() => playing && this.setState({delayDone: false, exhaleDone: true, audioTick: audioTick3})}
             />)}
             {exhaleDone && (<CountdownCircleTimer
               size={80}
-              isPlaying={playing && exhaleDone}
+              isPlaying={playing}
               duration={exhale}
               colors={"#A76FF0"}
               onComplete={() => playing && this.setState({exhaleDone: false, pauseDone: true, audioTick: audioTick2})}
             />)}
             {pauseDone && (<CountdownCircleTimer
               size={80}
-              isPlaying={playing && pauseDone}
+              isPlaying={playing}
               duration={pause}
               colors={"#00B050"}
               onComplete={() => playing && this.setState({pauseDone: false, inhaleDone: true, audioTick: audioTick1})}
