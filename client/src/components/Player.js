@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import ReactPlayer from 'react-player'
 import Sound from 'react-sound';
+import SoundPlayer from './SoundPlayer'
 import { findDOMNode } from 'react-dom'
 import screenfull from 'screenfull'
 import {PlayFill, PauseFill, Fullscreen, FullscreenExit, VolumeOffFill, VolumeMuteFill } from 'react-bootstrap-icons'
@@ -248,11 +249,13 @@ class Player extends Component {
               colors={"#00B0F0"}
               onComplete={() => playing && this.setState({inhaleDone: false, delayDone: true})}
             >
-              <Sound
-                url={audioTick1}
-                volume={mutedSound}
-                playStatus={(playing && inhaleDone) ? Sound.status.PLAYING : Sound.status.STOPPED}
-              />
+              <SoundPlayer playing={playing} done={inhaleDone} mutedSound={mutedSound} audioTick={audioTick1} />
+              {/*<Sound*/}
+              {/*  url={audioTick1}*/}
+              {/*  volume={mutedSound}*/}
+              {/*  playStatus={(playing && inhaleDone) ? Sound.status.PLAYING : Sound.status.STOPPED}*/}
+              {/*  onStop={() => console.log('Stopped')}*/}
+              {/*/>*/}
             </CountdownCircleTimer>)}
             {delayDone && (<CountdownCircleTimer
               size={80}
@@ -261,12 +264,13 @@ class Player extends Component {
               colors={"#ED7D31"}
               onComplete={() => playing && this.setState({delayDone: false, exhaleDone: true})}
             >
-              <Sound
-                url={audioTick2}
-                volume={mutedSound}
-                playStatus={(playing && delayDone) ? Sound.status.PLAYING: Sound.status.STOPPED}
-                onStop={() => console.log('Stopped')}
-              />
+              <SoundPlayer playing={playing} done={delayDone} mutedSound={mutedSound} audioTick={audioTick2} />
+              {/*<Sound*/}
+              {/*  url={audioTick2}*/}
+              {/*  volume={mutedSound}*/}
+              {/*  playStatus={(playing && delayDone) ? Sound.status.PLAYING: Sound.status.STOPPED}*/}
+              {/*  onStop={() => console.log('Stopped')}*/}
+              {/*/>*/}
             </CountdownCircleTimer>)}
             {exhaleDone && (<CountdownCircleTimer
               size={80}
@@ -275,12 +279,13 @@ class Player extends Component {
               colors={"#A76FF0"}
               onComplete={() => playing && this.setState({exhaleDone: false, pauseDone: true})}
             >
-              <Sound
-                url={audioTick3}
-                volume={mutedSound}
-                playStatus={(playing && exhaleDone) ? Sound.status.PLAYING: Sound.status.STOPPED}
-                onStop={() => console.log('Stopped')}
-              />
+              <SoundPlayer playing={playing} done={exhaleDone} mutedSound={mutedSound} audioTick={audioTick3} />
+              {/*<Sound*/}
+              {/*  url={audioTick3}*/}
+              {/*  volume={mutedSound}*/}
+              {/*  playStatus={(playing && exhaleDone) ? Sound.status.PLAYING: Sound.status.STOPPED}*/}
+              {/*  onStop={() => console.log('Stopped')}*/}
+              {/*/>*/}
             </CountdownCircleTimer>)}
             {pauseDone && (<CountdownCircleTimer
               size={80}
@@ -289,12 +294,13 @@ class Player extends Component {
               colors={"#00B050"}
               onComplete={() => playing && this.setState({pauseDone: false, inhaleDone: true})}
             >
-              <Sound
-                url={audioTick2}
-                volume={mutedSound}
-                playStatus={(playing && pauseDone) ? Sound.status.PLAYING: Sound.status.STOPPED}
-                onStop={() => console.log('Stopped')}
-              />
+              <SoundPlayer playing={playing} done={pauseDone} mutedSound={mutedSound} audioTick={audioTick2} />
+              {/*<Sound*/}
+              {/*  url={audioTick2}*/}
+              {/*  volume={mutedSound}*/}
+              {/*  playStatus={(playing && pauseDone) ? Sound.status.PLAYING: Sound.status.STOPPED}*/}
+              {/*  onStop={() => console.log('Stopped')}*/}
+              {/*/>*/}
             </CountdownCircleTimer>)}
           </div>
         </div>
@@ -311,17 +317,7 @@ class Player extends Component {
           height="0"
           playsinline={true}
         />
-        {/*<ReactPlayer*/}
-        {/*  url={metronom}*/}
-        {/*  volume={volume}*/}
-        {/*  muted={muted}*/}
-        {/*  loop={loop}*/}
-        {/*  playing={playing}*/}
-        {/*  onPlay={this.handlePlay}*/}
-        {/*  onPause={this.handlePause}*/}
-        {/*  width="0"*/}
-        {/*  height="0"*/}
-        {/*/>*/}
+
       </div>
         <div className="player-controls-container">
           <button className={playing ? 'pause-btn': 'play-btn'} onClick={playing ? this.handlePause : this.handlePlay }>
