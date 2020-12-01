@@ -74,6 +74,7 @@ class Player extends Component {
     light: false,
     volume: 0.8,
     muted: false,
+    mutedSound: 0.8 * 100,
     played: 0,
     loaded: 0,
     duration: 0,
@@ -102,11 +103,17 @@ class Player extends Component {
   }
 
   handleVolumeChange = e => {
-    this.setState({ volume: parseFloat(e.target.value) })
+    this.setState({
+      volume: parseFloat(e.target.value),
+      mutedSound: parseFloat(e.target.value) * 100
+    })
   }
 
   handleToggleMuted = () => {
-    this.setState({ muted: !this.state.muted })
+    this.setState({
+      muted: !this.state.muted,
+      mutedSound: !this.state.muted ? 0 : this.state.volume * 100
+    })
   }
 
   handlePlay = () => {
@@ -177,7 +184,7 @@ class Player extends Component {
   render() {
     const {
       url, playing, controls, light, volume, muted, loop, playbackRate, pip,
-      inhale, exhale, delay, pause, isFullscreen,
+      inhale, exhale, delay, pause, isFullscreen, mutedSound, iPhone,
       inhaleDone, delayDone, exhaleDone, pauseDone} = this.state
 
     const fullScr = isFullscreen ? {
@@ -243,7 +250,7 @@ class Player extends Component {
             >
               <Sound
                 url={audioTick1}
-                volume={ muted ? 0 : volume * 100}
+                volume={mutedSound}
                 playStatus={(playing && inhaleDone) ? Sound.status.PLAYING : Sound.status.STOPPED}
               />
             </CountdownCircleTimer>)}
@@ -256,7 +263,7 @@ class Player extends Component {
             >
               <Sound
                 url={audioTick2}
-                volume={ muted ? 0 : volume * 100}
+                volume={mutedSound}
                 playStatus={(playing && delayDone) ? Sound.status.PLAYING: Sound.status.STOPPED}
                 onStop={() => console.log('Stopped')}
               />
@@ -270,7 +277,7 @@ class Player extends Component {
             >
               <Sound
                 url={audioTick3}
-                volume={ muted ? 0 : volume * 100}
+                volume={mutedSound}
                 playStatus={(playing && exhaleDone) ? Sound.status.PLAYING: Sound.status.STOPPED}
                 onStop={() => console.log('Stopped')}
               />
@@ -284,7 +291,7 @@ class Player extends Component {
             >
               <Sound
                 url={audioTick2}
-                volume={ muted ? 0 : volume * 100}
+                volume={mutedSound}
                 playStatus={(playing && pauseDone) ? Sound.status.PLAYING: Sound.status.STOPPED}
                 onStop={() => console.log('Stopped')}
               />
@@ -302,6 +309,7 @@ class Player extends Component {
           onPause={this.handlePause}
           width="0"
           height="0"
+          playsinline={true}
         />
         {/*<ReactPlayer*/}
         {/*  url={metronom}*/}
@@ -322,12 +330,15 @@ class Player extends Component {
           <button className="fullscreen-btn float-right" onClick={this.handleClickFullscreen}>
             <Fullscreen />
           </button>
-          <input id='muted' className="float-right d-none" type='checkbox' checked={muted} onChange={this.handleToggleMuted} />
-          <input className="custom-range volume-range float-right" type='range' min={0} max={1} step='any' value={volume} onChange={this.handleVolumeChange} />
-
-          <label htmlFor='muted' className="muted-label float-right">
-            {muted ? (<VolumeMuteFill />) : (<VolumeOffFill />)}
-          </label>
+          {!iPhone && (
+            <>
+              <input id='muted' className="float-right d-none" type='checkbox' checked={muted} onChange={this.handleToggleMuted} />
+              <input className="custom-range volume-range float-right" type='range' min={0} max={1} step='any' value={volume} onChange={this.handleVolumeChange} />
+              <label htmlFor='muted' className="muted-label float-right">
+                {muted ? (<VolumeMuteFill />) : (<VolumeOffFill />)}
+              </label>
+            </>
+          )}
         </div>
       </>
     );

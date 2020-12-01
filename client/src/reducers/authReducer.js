@@ -34,6 +34,7 @@ const initialState = localStorage.setParams ? JSON.parse(localStorage.setParams)
         trackId: 1
       },
       volume: 0.8,
+      mutedSound: 0.8 * 100,
       useSuggestedRhythms: true,
       suggestedRhythm: 1
     }
