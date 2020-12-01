@@ -239,28 +239,28 @@ class Player extends Component {
           <div className="interval-timer">
             {inhaleDone && (<CountdownCircleTimer
               size={80}
-              isPlaying={playing}
+              isPlaying={playing && inhaleDone}
               duration={inhale}
               colors={"#00B0F0"}
               onComplete={() => playing && this.setState({inhaleDone: false, delayDone: true, audioTick: audioTick2})}
             />)}
             {delayDone && (<CountdownCircleTimer
               size={80}
-              isPlaying={playing}
+              isPlaying={playing && delayDone}
               duration={delay}
               colors={"#ED7D31"}
               onComplete={() => playing && this.setState({delayDone: false, exhaleDone: true, audioTick: audioTick3})}
             />)}
             {exhaleDone && (<CountdownCircleTimer
               size={80}
-              isPlaying={playing}
+              isPlaying={playing && exhaleDone}
               duration={exhale}
               colors={"#A76FF0"}
               onComplete={() => playing && this.setState({exhaleDone: false, pauseDone: true, audioTick: audioTick2})}
             />)}
             {pauseDone && (<CountdownCircleTimer
               size={80}
-              isPlaying={playing}
+              isPlaying={playing && pauseDone}
               duration={pause}
               colors={"#00B050"}
               onComplete={() => playing && this.setState({pauseDone: false, inhaleDone: true, audioTick: audioTick1})}
@@ -270,23 +270,10 @@ class Player extends Component {
 
         <SoundPlayer
           playing={playing}
-          done={inhaleDone || delayDone || exhaleDone || pauseDone}
+          done={playing && (inhaleDone || delayDone || exhaleDone || pauseDone)}
           mutedSound={mutedSound}
           audioTick={audioTick}
         />
-
-        {/*<ReactPlayer*/}
-        {/*  url={audioTick}*/}
-        {/*  volume={volume}*/}
-        {/*  muted={muted}*/}
-        {/*  loop={loop}*/}
-        {/*  playing={playing && (inhaleDone || delayDone || exhaleDone || pauseDone)}*/}
-        {/*  onPlay={this.handlePlay}*/}
-        {/*  onPause={this.handlePause}*/}
-        {/*  width="0"*/}
-        {/*  height="0"*/}
-        {/*  playsinline={true}*/}
-        {/*/>*/}
 
         <ReactPlayer
           url={this.audioSrc.src}

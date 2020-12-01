@@ -8,6 +8,7 @@ function SoundPlayer({mutedSound, playing, done, audioTick}) {
       volume={mutedSound}
       playStatus={(playing && done) ? Sound.status.PLAYING : Sound.status.STOPPED}
       onStop={() => console.log('Stopped')}
+      loop={false}
     />
   )
 }
