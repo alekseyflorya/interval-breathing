@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import ReactPlayer from 'react-player'
-// import SoundPlayer from './SoundPlayer'
+import SoundPlayer from './SoundPlayer'
 import { findDOMNode } from 'react-dom'
 import screenfull from 'screenfull'
 import {PlayFill, PauseFill, Fullscreen, FullscreenExit, VolumeOffFill, VolumeMuteFill } from 'react-bootstrap-icons'
@@ -268,25 +268,25 @@ class Player extends Component {
           </div>
         </div>
 
-        {/*<SoundPlayer*/}
-        {/*  playing={playing}*/}
-        {/*  done={inhaleDone || delayDone || exhaleDone || pauseDone}*/}
-        {/*  mutedSound={mutedSound}*/}
-        {/*  audioTick={audioTick}*/}
-        {/*/>*/}
-
-        <ReactPlayer
-          url={audioTick}
-          volume={volume}
-          muted={muted}
-          loop={loop}
-          playing={playing && (inhaleDone || delayDone || exhaleDone || pauseDone)}
-          onPlay={this.handlePlay}
-          onPause={this.handlePause}
-          width="0"
-          height="0"
-          playsinline={true}
+        <SoundPlayer
+          playing={playing}
+          done={inhaleDone || delayDone || exhaleDone || pauseDone}
+          mutedSound={mutedSound}
+          audioTick={audioTick}
         />
+
+        {/*<ReactPlayer*/}
+        {/*  url={audioTick}*/}
+        {/*  volume={volume}*/}
+        {/*  muted={muted}*/}
+        {/*  loop={loop}*/}
+        {/*  playing={playing && (inhaleDone || delayDone || exhaleDone || pauseDone)}*/}
+        {/*  onPlay={this.handlePlay}*/}
+        {/*  onPause={this.handlePause}*/}
+        {/*  width="0"*/}
+        {/*  height="0"*/}
+        {/*  playsinline={true}*/}
+        {/*/>*/}
 
         <ReactPlayer
           url={this.audioSrc.src}
@@ -309,13 +309,15 @@ class Player extends Component {
           <button className="fullscreen-btn float-right" onClick={this.handleClickFullscreen}>
             <Fullscreen />
           </button>
-          <input id='muted' className="float-right d-none" type='checkbox' checked={muted} onChange={this.handleToggleMuted} />
           {!iPhone && (
-            <input className="custom-range volume-range float-right" type='range' min={0} max={1} step='any' value={volume} onChange={this.handleVolumeChange} />
+            <>
+              <input id='muted' className="float-right d-none" type='checkbox' checked={muted} onChange={this.handleToggleMuted} />
+              <input className="custom-range volume-range float-right" type='range' min={0} max={1} step='any' value={volume} onChange={this.handleVolumeChange} />
+              <label htmlFor='muted' className="muted-label float-right">
+                {muted ? (<VolumeMuteFill />) : (<VolumeOffFill />)}
+              </label>
+            </>
           )}
-          <label htmlFor='muted' className="muted-label float-right">
-            {muted ? (<VolumeMuteFill />) : (<VolumeOffFill />)}
-          </label>
         </div>
       </>
     );
