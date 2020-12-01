@@ -36,9 +36,9 @@ import audio33 from '../assets/audio/music/Академия глубокой р�
 import audio34 from '../assets/audio/music/Инструментальная Зона Отдыха - Физическое восстановление.mp3'
 import audio35 from '../assets/audio/music/Оазис глубокой сна - Быстрый сон с фортепиано.mp3'
 
-import audioTick1 from '../assets/audio/cycle/inhale.mp3'
+import audioTick1 from '../assets/audio/cycle/inhale-timer.mp3'
 import audioTick2 from '../assets/audio/cycle/delay-pause.mp3'
-import audioTick3 from '../assets/audio/cycle/exhale.mp3'
+import audioTick3 from '../assets/audio/cycle/exhale-timer.mp3'
 
 const videosArray = [{id: 0, src: video1}, {id: 1, src: video2}, {id: 2, src: video3}, {id: 3, src: video4}, {id: 4, src: video5}, {id: 5, src: video6}, {id: 6, src: video7}, {id: 7, src: video8}, {id: 8, src: video9}];
 const audioArray = [
