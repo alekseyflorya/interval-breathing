@@ -6,7 +6,7 @@ import screenfull from 'screenfull'
 import {PlayFill, PauseFill, Fullscreen, FullscreenExit, VolumeOffFill, VolumeMuteFill } from 'react-bootstrap-icons'
 // import FiguresPlayer from "./FiguresPlayer"
 import {connect} from "react-redux"
-import { CountdownCircleTimer } from "react-countdown-circle-timer";
+import { CountdownCircleTimer } from "react-countdown-circle-timer"
 
 import video1 from '../assets/videos/V-ID-1.mp4'
 import video2 from '../assets/videos/V-ID-2.mp4'
@@ -177,6 +177,11 @@ class Player extends Component {
 
   audioSrc = audioArray.filter(({id}) => id === this.props.audio.trackId)[0]
 
+  inhaleComplete = () => this.state.playing && this.setState({inhaleDone: false, delayDone: true, audioTick: audioTick2})
+  delayComplete = () => this.state.playing && this.setState({delayDone: false, exhaleDone: true, audioTick: audioTick3})
+  exhaleComplete = () => this.state.playing && this.setState({exhaleDone: false, pauseDone: true, audioTick: audioTick2})
+  pauseComplete = () => this.state.playing && this.setState({pauseDone: false, inhaleDone: true, audioTick: audioTick1})
+
   render() {
     const {
       url, playing, controls, light, volume, muted, loop, playbackRate, pip,
@@ -242,28 +247,28 @@ class Player extends Component {
               isPlaying={playing}
               duration={inhale}
               colors={"#00B0F0"}
-              onComplete={() => playing && this.setState({inhaleDone: false, delayDone: true, audioTick: audioTick2})}
+              onComplete={() => this.inhaleComplete()}
             />)}
             {delayDone && (<CountdownCircleTimer
               size={80}
               isPlaying={playing}
               duration={delay}
               colors={"#ED7D31"}
-              onComplete={() => playing && this.setState({delayDone: false, exhaleDone: true, audioTick: audioTick3})}
+              onComplete={() => this.delayComplete()}
             />)}
             {exhaleDone && (<CountdownCircleTimer
               size={80}
               isPlaying={playing}
               duration={exhale}
               colors={"#A76FF0"}
-              onComplete={() => playing && this.setState({exhaleDone: false, pauseDone: true, audioTick: audioTick2})}
+              onComplete={() => this.exhaleComplete()}
             />)}
             {pauseDone && (<CountdownCircleTimer
               size={80}
               isPlaying={playing}
               duration={pause}
               colors={"#00B050"}
-              onComplete={() => playing && this.setState({pauseDone: false, inhaleDone: true, audioTick: audioTick1})}
+              onComplete={() => this.pauseComplete()}
             />)}
           </div>
         </div>
