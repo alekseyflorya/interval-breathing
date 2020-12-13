@@ -1,13 +1,17 @@
 import React from 'react'
-import Sound from "react-sound";
+import ReactPlayer from 'react-player'
 
-function SoundPlayer({mutedSound, playing, done, audioTick}) {
+function SoundPlayer({playing, audioTick, muted, volume}) {
   return (
-    <Sound
+    <ReactPlayer
       url={audioTick}
-      volume={mutedSound}
-      playStatus={(playing && done) ? Sound.status.PLAYING : Sound.status.STOPPED}
-      onStop={() => console.log('Stopped')}
+      volume={volume}
+      muted={muted}
+      loop={false}
+      playing={playing}
+      width="0"
+      height="0"
+      playsinline={true}
     />
   )
 }

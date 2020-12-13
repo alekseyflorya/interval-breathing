@@ -65,7 +65,6 @@ class Player extends Component {
     light: false,
     volume: 0.8,
     muted: false,
-    mutedSound: 0.8 * 100,
     played: 0,
     loaded: 0,
     duration: 0,

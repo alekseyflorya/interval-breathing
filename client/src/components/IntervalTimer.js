@@ -1,5 +1,4 @@
 import React, {useState} from 'react'
-import ReactPlayer from 'react-player'
 import {CountdownCircleTimer} from "react-countdown-circle-timer";
 import SoundPlayer from "./SoundPlayer";
 import audioTick1 from '../assets/audio/cycle/inhale-timer.mp3'
@@ -7,7 +6,7 @@ import audioTick2 from '../assets/audio/cycle/delay-pause.mp3'
 import audioTick3 from '../assets/audio/cycle/exhale-timer.mp3'
 import audioTick4 from '../assets/audio/cycle/stop.mp3'
 
-function IntervalTimer({inhale, exhale, delay, pause, playing, muted, volume, mutedSound}) {
+function IntervalTimer({inhale, exhale, delay, pause, playing, muted, volume}) {
   const [steps, setSteps] = useState({inhale: true, delay: false, exhale: false, pause: false, duration: inhale, color: '#00B0F0', audioTick: audioTick1})
   const [key, setKey] = useState(0)
 
@@ -33,19 +32,15 @@ function IntervalTimer({inhale, exhale, delay, pause, playing, muted, volume, mu
       </div>
       <SoundPlayer
         playing={playing}
-        done={playing}
-        mutedSound={mutedSound}
         audioTick={steps.audioTick}
-      />
-      <ReactPlayer
-        url={audioTick2}
-        volume={volume}
         muted={muted}
-        loop={true}
+        volume={volume}
+      />
+      <SoundPlayer
         playing={playing && (steps.delay || steps.pause)}
-        width="0"
-        height="0"
-        playsinline={true}
+        audioTick={audioTick2}
+        muted={muted}
+        volume={volume}
       />
     </>
   )
