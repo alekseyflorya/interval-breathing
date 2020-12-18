@@ -36,12 +36,6 @@ function IntervalTimer({inhale, exhale, delay, pause, playing, muted, volume}) {
         muted={muted}
         volume={volume}
       />
-      <SoundPlayer
-        playing={playing && (steps.delay || steps.pause)}
-        audioTick={audioTick2}
-        muted={muted}
-        volume={volume}
-      />
     </>
   )
 }
