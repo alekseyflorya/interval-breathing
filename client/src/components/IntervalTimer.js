@@ -1,9 +1,8 @@
 import React, {useState} from 'react'
 import {CountdownCircleTimer} from "react-countdown-circle-timer";
 import SoundPlayer from "./SoundPlayer";
-import audioTick1 from '../assets/audio/cycle/inhale-timer.mp3'
-import audioTick2 from '../assets/audio/cycle/delay-pause.mp3'
-import audioTick3 from '../assets/audio/cycle/exhale-timer.mp3'
+import audioTick1 from '../assets/audio/cycle/inhale.mp3'
+import audioTick3 from '../assets/audio/cycle/exhale.mp3'
 import audioTick4 from '../assets/audio/cycle/stop.mp3'
 
 function IntervalTimer({inhale, exhale, delay, pause, playing, muted, volume}) {
